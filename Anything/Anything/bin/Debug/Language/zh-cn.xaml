@@ -1,0 +1,89 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Anything.Resources"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="LanguageName">%LanguageName%:简体中文</sys:String>
+
+    <!--Main Window-->
+    <sys:String x:Key="VEwndMainKeywordTip">使用关键字进行检索</sys:String>
+    <sys:String x:Key="VEwndMainHotKeyFailed">热键注册失败</sys:String>
+    <sys:String x:Key="VEwndMainCloseTip">再点一次</sys:String>
+    <sys:String x:Key="VEwndMainAllLoadHeader">正在初始化程序</sys:String>
+    <sys:String x:Key="VEwndMainAllLoadFooter">请稍后...</sys:String>	
+    <sys:String x:Key="VEwndMainBtnSearch">Search on web</sys:String>
+    <sys:String x:Key="VEwndMainMNAddNew">添加(_A)</sys:String>
+    <sys:String x:Key="VEwndMainMNAddComputer">添加我的电脑</sys:String>
+    <sys:String x:Key="VEwndMainMNAddDocument">添加我的文档</sys:String>
+    <sys:String x:Key="VEwndMainMNAddRecycleBin">添加回收站</sys:String>
+    <sys:String x:Key="VEwndMainMNAddControlPanel">添加控制面板</sys:String>
+    <sys:String x:Key="VEwndMainMNAddNetworkNeighborhood">添加网络邻居</sys:String>
+    <sys:String x:Key="VEwndMainMNOtherFunction">其他功能(_O)</sys:String>
+    <sys:String x:Key="VEwndMainMNPlugins">插件(_P)</sys:String>
+    <sys:String x:Key="VEwndMainMNSettings">设置(_S)</sys:String>
+    <sys:String x:Key="VEwndMainMNLanguages">语言(_L)</sys:String>
+    <sys:String x:Key="VEwndMainMNExpandAll">展开所有(_E)</sys:String>
+    <sys:String x:Key="VEwndMainMNRetractAll">收起所有(_R)</sys:String>
+
+    <!--Add Window-->
+    <sys:String x:Key="VEwndAddTBName">名称:</sys:String>
+    <sys:String x:Key="VEwndAddTBPath">路径:</sys:String>
+    <sys:String x:Key="VEwndAddTBArguments">参数:</sys:String>
+    <sys:String x:Key="VEwndAddBtnAdd">添加</sys:String>
+
+    
+    <!--Arguments Window-->
+    <sys:String x:Key="VEwndArgumentsTBName">名称:</sys:String>
+    <sys:String x:Key="VEwndArgumentsTBArguments">参数:</sys:String>
+    <sys:String x:Key="VEwndArgumentsBtnDone">完成</sys:String>
+
+    
+    <!--ItemInformation Window-->
+    <sys:String x:Key="VEwndItemInformationTBInformation">信息</sys:String>
+    <sys:String x:Key="VEwndItemInformationTBName">名称:</sys:String>
+    <sys:String x:Key="VEwndItemInformationTBPath">路径:</sys:String>
+    <sys:String x:Key="VEwndItemInformationTBArguments">参数:</sys:String>
+    <sys:String x:Key="VEwndItemInformationTBWorkingDirectory">工作目录:</sys:String>
+    <sys:String x:Key="VEwndItemInformationTBTagName">标签名称:</sys:String>
+    <sys:String x:Key="VEwndItemInformationTBHotKey">热键:</sys:String>
+    <sys:String x:Key="VEwndItemInformationTBIcon">图标:</sys:String>
+    <sys:String x:Key="VEwndItemInformationBtnChangeIcon">更改图标</sys:String>
+    
+    
+    <!--Prepare Setting Window-->
+    <sys:String x:Key="VEwndPreSetTBTagName">标签名称:</sys:String>
+    <sys:String x:Key="VEwndPreSetBtnOK">确定</sys:String>
+    
+    
+    <!--Settings Window-->
+    <sys:String x:Key="VEwndSettingsEprVisualSettings">视觉设置</sys:String>
+    <sys:String x:Key="VEwndSettingsTBMaxOpacity">最大不透明度:</sys:String>
+    <sys:String x:Key="VEwndSettingsTBMinOpacity">最小不透明度:</sys:String>
+    <sys:String x:Key="VEwndSettingsTBFadeinDuration">淡入时长:</sys:String>
+    <sys:String x:Key="VEwndSettingsTBFadoutDuration">淡出时长:</sys:String>
+    <sys:String x:Key="VEwndSettingsTBItemSize">项目尺寸:</sys:String>
+    <sys:String x:Key="VEwndSettingsEprSearchEngineManagement">搜索引擎管理</sys:String>
+    <sys:String x:Key="VEwndSettingsTBSEAddNew">添加 (使用"%keyword%"代替关键字):</sys:String>
+    <sys:String x:Key="VEwndSettingsTBSEName">名称:</sys:String>
+    <sys:String x:Key="VEwndSettingsTBSEURL">地址:</sys:String>
+    <sys:String x:Key="VEwndSettingsBtnSEAdd">添加</sys:String>
+
+
+    <!--Item UserControl-->
+    <sys:String x:Key="VEItemMNOpen">打开(_O)</sys:String>
+    <sys:String x:Key="VEItemMNRAA">以管理员权限打开(_R)</sys:String>
+    <sys:String x:Key="VEItemMNDel">删除(_D)</sys:String>
+    <sys:String x:Key="VEItemMNFL">打开文件位置(_F)</sys:String>
+    <sys:String x:Key="VEItemMNSSTD">发送快捷方式到桌面(_S)</sys:String>
+    <sys:String x:Key="VEItemMNCA">更改参数(_C)</sys:String>
+    <sys:String x:Key="VEItemMNMOTI">将此项目移出窗体(_M)</sys:String>
+    <sys:String x:Key="VEItemMNAttr">属性(_A)</sys:String>
+    <sys:String x:Key="VEItemMNResetName">重命名</sys:String>
+
+
+    <!--Others-->
+    <sys:String x:Key="VEManageLoadingInnerDataHeader">正在加载数据</sys:String>
+    <sys:String x:Key="VEManageLoadingInnerDataFooter">请稍后...</sys:String>
+    <sys:String x:Key="VEManageItemExists">项目已经存在</sys:String>
+    <sys:String x:Key="VEManageDefaultTagName">默认分组</sys:String>
+
+</ResourceDictionary>

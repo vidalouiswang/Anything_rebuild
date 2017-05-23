@@ -1,0 +1,12 @@
+﻿HotKey{Ctrl+Alt+D1}
+Width{350}
+Height{700}
+ItemSize{128}
+MaxOpacity{0.98}
+MinOpacity{0.05}
+ShowTimeSpan{0.3}
+HideTimeSpan{0.3}
+TimeOut{3}
+Language{English}
+Left{482}
+Top{66}

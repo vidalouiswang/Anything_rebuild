@@ -1,0 +1,230 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Anything.Resources">
+
+
+    <Style x:Key="BdrStyle" TargetType="{x:Type Border}">
+        <Style.Triggers>
+
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="#33FFFFFF"></Setter>
+            </Trigger>
+
+            <EventTrigger RoutedEvent="Mouse.MouseDown">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).Color"
+                                                To="#FFFFFFFF"
+                                                Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="Mouse.MouseUp">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).Color"
+                                                Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+
+            <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).Color"
+                                                To="#00000000"
+                                                Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="Mouse.MouseMove">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).Color"
+                                                To="#00000000"
+                                                Duration="0:0:0"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Background"   Value="#33FFFFFF"></Setter>
+            </Trigger>
+
+        </Style.Triggers>
+
+        <Setter Property="Background" Value="#00000000"></Setter>
+        <Setter Property="Focusable" Value="True"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="CornerRadius" Value="10"></Setter>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"></Setter>
+    </Style>
+
+    <!--<Style x:Key="BdrStyle" TargetType="{x:Type Border}">
+        <Style.Triggers>
+
+            <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).Color"
+                                           
+                                                To="#FFFFFFFF"
+                                                Duration="0:0:0.5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].ScaleX"
+                                             Duration="0:0:0.3"
+                                             To="1.1"
+                                             ></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].ScaleY"
+                                             Duration="0:0:0.3"
+                                             To="1.1"
+                                             ></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).Color"
+                                            
+                                                To="#00FFFFFF"
+                                                Duration="0:0:0.5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].ScaleX"
+                                             Duration="0:0:0.5"
+                                             
+                                             ></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].ScaleY"
+                                             Duration="0:0:0.5"
+                                             
+                                             ></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="Mouse.MouseDown">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].ScaleX"
+                                             Duration="0:0:0.0"
+                                             To="1"
+                                             ></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].ScaleY"
+                                             Duration="0:0:0.0"
+                                             To="1"
+                                             ></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="Mouse.MouseUp">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].ScaleX"
+                                             Duration="0:0:0.0"
+                                             To="1.1"
+                                             ></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].ScaleY"
+                                             Duration="0:0:0.0"
+                                             To="1.1"
+                                             ></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Background"   Value="#33FFFFFF"></Setter>
+            </Trigger>
+
+        </Style.Triggers>
+
+        <Setter Property="Background" Value="#00000000"></Setter>
+        <Setter Property="Focusable" Value="True"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="CornerRadius" Value="10"></Setter>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"></Setter>
+    </Style>-->
+
+    <Style x:Key="BdrStyleOut" TargetType="{x:Type Border}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="#33FFFFFF"></Setter>
+            </Trigger>
+
+        </Style.Triggers>
+
+        <Setter Property="Background" Value="#00000000"></Setter>
+
+        <Setter Property="BorderThickness" Value="2"></Setter>
+        <Setter Property="CornerRadius" Value="10"></Setter>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"></Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ContextMenu}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <Border CornerRadius="0">
+                        <ItemsPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background"  Value="#00ffffff"></Setter>
+    </Style>
+
+
+
+    <Style TargetType="MenuItem">
+        <Setter Property="Template" Value="{DynamicResource MenuItemTemplate}"></Setter>
+        <Setter Property="MinHeight" Value="25"></Setter>
+        <Setter Property="MinWidth" Value="100"></Setter>
+        <Setter Property="Background" Value="#cc303030"></Setter>
+        <Setter Property="BorderBrush" Value="#cc909090"></Setter>
+        <Setter Property="Margin" Value="0.5"></Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="#ee606060"></Setter>
+                <Setter Property="BorderBrush" Value="#eeaaaaaa"></Setter>
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+
+    <ControlTemplate x:Key="MenuItemTemplate" TargetType="{x:Type MenuItem}">
+        <Border Background="{TemplateBinding Background}" BorderThickness="2" BorderBrush="{TemplateBinding BorderBrush}"
+                CornerRadius="5"
+                TextBlock.FontSize="16"
+                TextBlock.TextAlignment="Center"
+                TextBlock.Foreground="White"
+                Padding="6,3,6,3"
+                >
+            <Grid>
+                <Image Source="{TemplateBinding Icon}"></Image>
+                <ContentPresenter ContentSource="Header" RecognizesAccessKey="True"></ContentPresenter>
+                <Popup Placement="Mouse" IsOpen="{TemplateBinding IsSubmenuOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Fade" >
+                    <StackPanel IsItemsHost="True"></StackPanel>
+                </Popup>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+</ResourceDictionary>

@@ -1,0 +1,74 @@
+﻿<Window x:Class="Anything.Form.wndArguments"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Anything.Form"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="wndArguments" Height="283.312" Width="418.705" WindowStyle="None"  Background="#00000000" 
+        AllowsTransparency="True">
+    <Border x:Name="BdrOut" Background="#FFeeeeee" CornerRadius="5" BorderThickness="2" Width="auto" Height="auto" >
+        <Border Background="#DE161616" BorderThickness="1" CornerRadius="5" Width="{Binding ElementName=BdrOut,Path=Width}" MouseMove="Border_MouseMove">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="btnClose" Style="{StaticResource  ButtonStyle_Close}"
+                        HorizontalAlignment="Right"
+                        Grid.Row="0" Grid.Column="2"
+                        VerticalAlignment="Top" Click="btnClose_Click">
+                    <Grid>
+                        <Line X1="6" Y1="6" X2="20"  Y2="20" Stroke="#FFAAAAAA"  StrokeThickness="2"/>
+                        <Line X1="6" Y1="6" X2="20"  Y2="20" Stroke="#FFAAAAAA"  StrokeThickness="2" RenderTransformOrigin="0.5,0.5">
+                            <Line.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="90"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Line.RenderTransform>
+                        </Line>
+
+                    </Grid>
+                </Button>
+
+                <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:wndArguments}}"
+                           Style="{StaticResource TextBlockStyle}"
+                           Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+
+                <TextBlock Text="{DynamicResource VEwndArgumentsTBName}" 
+                           Grid.Row="1" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Center"></TextBlock>
+                <TextBlock  Grid.Row="1" Style="{StaticResource  TextBlockStyle}" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center"
+                    Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:wndArguments},Path=ItemName}" 
+                            HorizontalAlignment="Left">
+                </TextBlock>
+
+
+                <TextBlock Text="{DynamicResource VEwndArgumentsTBArguments}"
+                           Grid.Row="2" Style="{StaticResource TextBlockStyle}" VerticalAlignment="Center"></TextBlock>
+                <TextBox x:Name="TxtArguments" Style="{StaticResource TextBoxStyle}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                         Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:wndArguments},Path=Arguments,Mode=TwoWay}" ></TextBox>
+
+                <Button Style="{StaticResource NormalButtonStyle}"
+                        x:Name="btnDone"
+                         Grid.Row="3" Grid.ColumnSpan="3"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Content="{DynamicResource VEwndArgumentsBtnDone}"
+                        Click="btnDone_Click"></Button>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

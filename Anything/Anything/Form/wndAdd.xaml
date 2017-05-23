@@ -1,0 +1,79 @@
+﻿<Window x:Class="Anything.Form.wndAdd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Anything.Form"
+        mc:Ignorable="d"
+               WindowStartupLocation="CenterScreen"
+        Title="wndAdd" Height="322" Width="471.416" WindowStyle="None"  AllowsTransparency="True" Background="Transparent">
+    
+    <Border x:Name="BdrOut" Background="#FFeeeeee" CornerRadius="5" BorderThickness="2" Width="auto" Height="auto" >
+        <Border Background="#DE161616" BorderThickness="1" CornerRadius="5" Width="{Binding ElementName=BdrOut,Path=Width}" MouseMove="Border_MouseMove">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Style="{StaticResource TextBlockStyle}"
+                           Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:wndAdd},Path=lanAdd}"
+                           Grid.Row="0" Grid.ColumnSpan="3" VerticalAlignment="Center"></TextBlock>
+                <Button x:Name="btnClose" Style="{StaticResource  ButtonStyle_Close}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Grid.Row="0" Grid.Column="2" Click="btnClose_Click">
+                    <Grid>
+                        <Line X1="6" Y1="6" X2="20"  Y2="20" Stroke="#FFAAAAAA"  StrokeThickness="2"/>
+                        <Line X1="6" Y1="6" X2="20"  Y2="20" Stroke="#FFAAAAAA"  StrokeThickness="2" RenderTransformOrigin="0.5,0.5">
+                            <Line.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="90"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Line.RenderTransform>
+                        </Line>
+
+                    </Grid>
+                </Button>
+
+                <TextBlock Style="{StaticResource TextBlockStyle}" 
+                           Text="{DynamicResource VEwndAddTBName}" 
+                           Grid.Row="1" VerticalAlignment="Center"></TextBlock>
+                <TextBox Style="{StaticResource TextBoxStyle}" x:Name="txtName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                         Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:wndAdd}},Path=ItemName}"></TextBox>
+
+                <TextBlock Style="{StaticResource TextBlockStyle}" 
+                           Text="{DynamicResource VEwndAddTBPath}"
+                           Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+                <TextBox Style="{StaticResource TextBoxStyle}" x:Name="txtPath" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" 
+                         Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:wndAdd}},Path=Path}"></TextBox>
+
+                <TextBlock Style="{StaticResource TextBlockStyle}" 
+                           Text="{DynamicResource VEwndAddTBArguments}"
+                           Grid.Row="3" VerticalAlignment="Center"></TextBlock>
+                <TextBox Style="{StaticResource TextBoxStyle}" x:Name="txtArguments" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                         Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:wndAdd}},Path=Arguments}"></TextBox>
+
+                <Button x:Name="btnDone" Style="{StaticResource NormalButtonStyle}"
+                        Grid.Row="4" 
+                        VerticalAlignment="Top"
+                        Grid.ColumnSpan="3"
+                        HorizontalAlignment="Center" 
+                        Content="{DynamicResource VEwndAddBtnAdd}"
+                        Click="btnDone_Click"></Button>
+                <!--Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:wndAdd},Path=lanBtnAdd}"-->
+            </Grid>
+        </Border>
+    </Border>
+</Window>
