@@ -22,7 +22,7 @@ namespace Anything.Class
         #region Path
 
         //指示当前路径
-        public static string CurrentPath = Environment.CurrentDirectory + "\\";
+        public static string CurrentPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
 
         //图标文件的存放路径
         public static string IconPath = CurrentPath + "icon\\";
@@ -48,9 +48,6 @@ namespace Anything.Class
 
         //用于保存热键的库
         public static Anoicess.Anoicess.Anoicess mHoyKey = new Anoicess.Anoicess.Anoicess("mHotKey");
-
-        //语言信息
-        public static Anoicess.Anoicess.Anoicess mLanguage = new Anoicess.Anoicess.Anoicess("mLanguage");
 
         #endregion
 
@@ -130,7 +127,7 @@ namespace Anything.Class
 
 
         //加载窗体引用
-        public static wndLoading WindowLoading;
+        //public static wndLoading WindowLoading;
 
 
         public static wndTip tipForItem = new wndTip();
@@ -154,15 +151,15 @@ namespace Anything.Class
         public static Regex reKeyword = new Regex(@"([^:]*)?:{1}([^:]*)?:?([^:]*)?");
 
 
-        public static string LoadingInnerDataHeader = Application.Current.FindResource("VEManageLoadingInnerDataHeader") as string;
+        public static string LoadingInnerDataHeader = Application.Current.TryFindResource("VEManageLoadingInnerDataHeader") as string;
 
-        public static string LoadingInnerDataFooter = Application.Current.FindResource("VEManageLoadingInnerDataFooter") as string;
-
-
-        public static string ItemExists = Application.Current.FindResource("VEManageItemExists") as string;
+        public static string LoadingInnerDataFooter = Application.Current.TryFindResource("VEManageLoadingInnerDataFooter") as string;
 
 
-        public static string DefaultTagName = Application.Current.FindResource("VEManageDefaultTagName") as string;
+        public static string ItemExists = Application.Current.TryFindResource("VEManageItemExists") as string;
+
+
+        public static string DefaultTagName = Application.Current.TryFindResource("VEManageDefaultTagName") as string;
 
 
         public static string rSPLIT = "#SPLIT#";
@@ -205,20 +202,29 @@ namespace Anything.Class
 
             if (!string.IsNullOrEmpty(path))
             {
+                FileStream fs=null;
+                try
+                {
+                    fs = new FileStream(path, FileMode.Open);
+                }
+                catch
+                {
+                   
+                }
+                if (fs!=null)
+                {
+                    BitmapImage bi = new BitmapImage();
 
-                FileStream fs = new FileStream(path,FileMode.Open);
+                    bi.BeginInit();
 
-                BitmapImage bi = new BitmapImage();
+                    bi.StreamSource = fs;
 
-                bi.BeginInit();
+                    bi.EndInit();
 
-                bi.StreamSource = fs;
+                    ImageBrush ib = new ImageBrush(bi);
 
-                bi.EndInit();
-
-                ImageBrush ib = new ImageBrush(bi);
-
-                Manage.WindowMain.bdrMainForm.Background = ib;
+                    Manage.WindowMain.bdrMainForm.Background = ib;
+                }
             }
         }
 
@@ -294,23 +300,23 @@ namespace Anything.Class
 
                     
                     //更新部分非绑定的字符串值
-                    WindowMain.KeywordTip = Application.Current.FindResource("VEwndMainKeywordTip") as string;
+                    WindowMain.KeywordTip = Application.Current.TryFindResource("VEwndMainKeywordTip") as string;
 
-                    WindowMain.HotKeyFailed = Application.Current.FindResource("VEwndMainHotKeyFailed") as string;
+                    WindowMain.HotKeyFailed = Application.Current.TryFindResource("VEwndMainHotKeyFailed") as string;
 
-                    WindowMain.CloseTip = Application.Current.FindResource("VEwndMainCloseTip") as string;
+                    WindowMain.CloseTip = Application.Current.TryFindResource("VEwndMainCloseTip") as string;
 
-                    WindowMain.AllLoadHeader = Application.Current.FindResource("VEwndMainAllLoadHeader") as string;
+                    WindowMain.AllLoadHeader = Application.Current.TryFindResource("VEwndMainAllLoadHeader") as string;
 
-                    WindowMain.AllLoadFooter = Application.Current.FindResource("VEwndMainAllLoadFooter") as string;
+                    WindowMain.AllLoadFooter = Application.Current.TryFindResource("VEwndMainAllLoadFooter") as string;
 
-                    LoadingInnerDataHeader = Application.Current.FindResource("VEManageLoadingInnerDataHeader") as string;
+                    LoadingInnerDataHeader = Application.Current.TryFindResource("VEManageLoadingInnerDataHeader") as string;
 
-                    LoadingInnerDataFooter = Application.Current.FindResource("VEManageLoadingInnerDataFooter") as string;
+                    LoadingInnerDataFooter = Application.Current.TryFindResource("VEManageLoadingInnerDataFooter") as string;
 
-                    ItemExists = Application.Current.FindResource("VEManageItemExists") as string;
+                    ItemExists = Application.Current.TryFindResource("VEManageItemExists") as string;
 
-                    DefaultTagName = Application.Current.FindResource("VEManageDefaultTagName") as string;
+                    DefaultTagName = Application.Current.TryFindResource("VEManageDefaultTagName") as string;
 
                     WindowMain.ClearSearch();
 

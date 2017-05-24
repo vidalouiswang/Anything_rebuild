@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Anything.Form"
         mc:Ignorable="d"
-        Title="wndDrag" Height="128" Width="128" WindowStyle="None" AllowsTransparency="True" 
-        Background="Transparent" MouseMove="Window_MouseMove">
+        Title="wndDrag" 
+        Height="128" 
+        Width="128"
+        MouseMove="Window_MouseMove"
+        Style="{StaticResource ChildFormStyle}">
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
         <StackPanel x:Name="spMain" Orientation="Vertical" VerticalAlignment="Center">
 

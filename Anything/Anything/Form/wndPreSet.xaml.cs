@@ -49,7 +49,7 @@ namespace Anything.Form
         }
 
         public static readonly DependencyProperty tagNameProperty =
-            DependencyProperty.Register("tagName", typeof(string), typeof(wndPreSet), new PropertyMetadata(""));
+            DependencyProperty.Register("tagName", typeof(string), typeof(wndPreSet), new PropertyMetadata((string)""));
 
 
 

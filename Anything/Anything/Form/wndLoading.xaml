@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Anything.Form"
         mc:Ignorable="d"
         Title="wndLoading" Height="300" Width="500" WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        WindowStartupLocation="CenterScreen" Initialized="Window_Initialized" Loaded="Window_Loaded" >
     <Grid>
         <Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="0">

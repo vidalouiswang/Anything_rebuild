@@ -22,7 +22,7 @@ namespace Anything.UserControls
             set { SetValue(ValueProperty, value); }
         }
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(double), typeof(ProgressBarEx), new PropertyMetadata(0.0, PropertyChanged));
+            DependencyProperty.Register("Value", typeof(double), typeof(ProgressBarEx), new PropertyMetadata((double)0.0, PropertyChanged));
 
         public double Maximum
         {
@@ -30,7 +30,7 @@ namespace Anything.UserControls
             set { SetValue(MaximumProperty, value); }
         }
         public static readonly DependencyProperty MaximumProperty =
-            DependencyProperty.Register("Maximum", typeof(double), typeof(ProgressBarEx), new PropertyMetadata(100.0));
+            DependencyProperty.Register("Maximum", typeof(double), typeof(ProgressBarEx), new PropertyMetadata((double)100.0));
 
 
         public double Minimum
@@ -39,7 +39,7 @@ namespace Anything.UserControls
             set { SetValue(MinimumProperty, value); }
         }
         public static readonly DependencyProperty MinimumProperty =
-            DependencyProperty.Register("Minimum", typeof(double), typeof(ProgressBarEx), new PropertyMetadata(0.0));
+            DependencyProperty.Register("Minimum", typeof(double), typeof(ProgressBarEx), new PropertyMetadata((double)0.0));
 
 
         #endregion

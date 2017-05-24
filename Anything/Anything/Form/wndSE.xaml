@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Anything.Form"
         mc:Ignorable="d"
-        Title="wndSE" Height="232.333" Width="230.583" AllowsTransparency="True" WindowStyle="None"
-        Background="Transparent" Activated="Window_Activated" Closing="Window_Closing" MouseLeave="Window_MouseLeave">
+        Title="wndSE" 
+        Height="232.333" 
+        Width="230.583" 
+        Activated="Window_Activated" 
+        Closing="Window_Closing" 
+        MouseLeave="Window_MouseLeave"
+        Style="{StaticResource ChildFormStyle}">
     
     <Border x:Name="BdrOut" Background="#aaeeeeee" CornerRadius="5" BorderThickness="2" Width="auto" Height="auto" >
         <Border Background="#DE161616" BorderThickness="1" CornerRadius="5" Width="{Binding ElementName=BdrOut,Path=Width}">

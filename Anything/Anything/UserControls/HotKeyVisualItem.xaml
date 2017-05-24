@@ -11,7 +11,7 @@
         <TextBox x:Name="txtKey" FontSize="16"
              KeyDown="txtKey_KeyDown"
              
-             Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:HotKeyVisualItem},Path=HotKeysString,Mode=TwoWay}"
+             Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:HotKeyVisualItem},Path=HotKeysString,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
              HorizontalAlignment="Left" VerticalAlignment="Center" KeyUp="txtKey_KeyUp"
                  Height="{Binding ElementName=Me,Path=ActualHeight}"
                  MinWidth="200"

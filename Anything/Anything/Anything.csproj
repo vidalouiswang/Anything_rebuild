@@ -46,7 +46,8 @@
     <ApplicationIcon>monitor.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Anoicess">
+    <Reference Include="Anoicess, Version=1.0.2.9, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Anoicess\Anoicess\Anoicess\bin\Release\Anoicess.dll</HintPath>
     </Reference>
     <Reference Include="ApplicationInformations, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">

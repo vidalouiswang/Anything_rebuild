@@ -31,7 +31,7 @@ namespace Anything.UserControls
 
         // Using a DependencyProperty as the backing store for SEName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SENameProperty =
-            DependencyProperty.Register("SEName", typeof(string), typeof(SearchEngineItem), new PropertyMetadata(""));
+            DependencyProperty.Register("SEName", typeof(string), typeof(SearchEngineItem), new PropertyMetadata((string)""));
 
 
 
@@ -44,7 +44,7 @@ namespace Anything.UserControls
 
         // Using a DependencyProperty as the backing store for URL.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty URLProperty =
-            DependencyProperty.Register("URL", typeof(string), typeof(SearchEngineItem), new PropertyMetadata(""));
+            DependencyProperty.Register("URL", typeof(string), typeof(SearchEngineItem), new PropertyMetadata((string)""));
 
 
 
@@ -59,7 +59,7 @@ namespace Anything.UserControls
 
         // Using a DependencyProperty as the backing store for Keyword.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty KeywordProperty =
-            DependencyProperty.Register("Keyword", typeof(string), typeof(SearchEngineItem), new PropertyMetadata(""));
+            DependencyProperty.Register("Keyword", typeof(string), typeof(SearchEngineItem), new PropertyMetadata((string)""));
 
         private void UserControl_MouseMove(object sender, MouseEventArgs e)
         {

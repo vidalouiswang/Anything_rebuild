@@ -199,8 +199,6 @@ namespace Anything.Form
 
             #region Load language and register hotkey
 
-            Manage.WindowMain = this;
-
             //加载语言
             Manage.LoadingLanguage();
 
@@ -304,7 +302,7 @@ namespace Anything.Form
 
             
             //关闭加载窗体
-            Manage.WindowLoading.Close();
+            //Manage.WindowLoading.Close();
 
             wndpb.Increase(25);
 
@@ -361,8 +359,15 @@ namespace Anything.Form
             //检查是否是鼠标左键
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                //移动窗体
-                this.DragMove();
+                try
+                {
+                    //移动窗体
+                    this.DragMove();
+                }
+                catch
+                {
+
+                }
 
                 //取消冒泡
                 e.Handled = true;

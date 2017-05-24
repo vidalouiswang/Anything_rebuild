@@ -57,11 +57,17 @@ namespace Anything.Form
             txt.Foreground = brushSC;
         }
 
+        private void Window_Initialized(object sender, EventArgs e)
+        {
+
+            
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Manage.WindowLoading = this;
-            wndMain wnd = new wndMain();
-            wnd.Show();
+            Manage.WindowMain = new wndMain(); //这一句报类型初始值异常
+            Manage.WindowMain.Show();
+            this.Close();
         }
     }
 }

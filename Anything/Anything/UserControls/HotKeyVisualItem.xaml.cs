@@ -72,7 +72,7 @@ namespace Anything.UserControls
             set { SetValue(HotKeysStringProperty, value); }
         }
         public static readonly DependencyProperty HotKeysStringProperty =
-            DependencyProperty.Register("HotKeysString", typeof(string), typeof(HotKeyVisualItem), new PropertyMetadata("", PropertyChanged));
+            DependencyProperty.Register("HotKeysString", typeof(string), typeof(HotKeyVisualItem), new PropertyMetadata((string)"", PropertyChanged));
 
         public System.Windows.Forms.Keys KeyValue { get; set; }
 

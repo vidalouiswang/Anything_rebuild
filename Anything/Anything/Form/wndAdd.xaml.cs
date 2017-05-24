@@ -16,7 +16,7 @@ namespace Anything.Form
             set { SetValue(ItemNameProperty, value); }
         }
         public static readonly DependencyProperty ItemNameProperty =
-            DependencyProperty.Register("ItemName", typeof(string), typeof(wndAdd), new PropertyMetadata(""));
+            DependencyProperty.Register("ItemName", typeof(string), typeof(wndAdd), new PropertyMetadata((string)""));
 
         public string Path
         {
@@ -24,7 +24,7 @@ namespace Anything.Form
             set { SetValue(PathProperty, value); }
         }
         public static readonly DependencyProperty PathProperty =
-            DependencyProperty.Register("Path", typeof(string), typeof(wndAdd), new PropertyMetadata(""));
+            DependencyProperty.Register("Path", typeof(string), typeof(wndAdd), new PropertyMetadata((string)""));
 
         public string Arguments
         {
@@ -32,7 +32,7 @@ namespace Anything.Form
             set { SetValue(ArgumentsProperty, value); }
         }
         public static readonly DependencyProperty ArgumentsProperty =
-            DependencyProperty.Register("Arguments", typeof(string), typeof(wndAdd), new PropertyMetadata(""));
+            DependencyProperty.Register("Arguments", typeof(string), typeof(wndAdd), new PropertyMetadata((string)""));
 
         private wndTip Tip = new wndTip();
 

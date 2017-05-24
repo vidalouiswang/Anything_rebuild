@@ -25,7 +25,8 @@
         MouseMove="Me_MouseMove" 
         KeyDown="Me_KeyDown" 
         Closing="Me_Closing" 
-        Activated="Me_Activated" GotFocus="MW_GotFocus" 
+        Activated="Me_Activated" 
+        GotFocus="MW_GotFocus" 
         >
 
     <Border x:Name="bdrMain" MouseLeave="bdrMain_MouseLeave" Background="Transparent">

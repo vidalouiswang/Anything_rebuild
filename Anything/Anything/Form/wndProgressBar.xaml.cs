@@ -32,7 +32,7 @@ namespace Anything.Form
 
         // Using a DependencyProperty as the backing store for Head.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HeadProperty =
-            DependencyProperty.Register("Head", typeof(string), typeof(wndProgressBar), new PropertyMetadata("This is Head"));
+            DependencyProperty.Register("Head", typeof(string), typeof(wndProgressBar), new PropertyMetadata((string)"This is Head"));
 
 
 
@@ -44,7 +44,7 @@ namespace Anything.Form
 
         // Using a DependencyProperty as the backing store for Foot.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FootProperty =
-            DependencyProperty.Register("Foot", typeof(string), typeof(wndProgressBar), new PropertyMetadata("This is Foot"));
+            DependencyProperty.Register("Foot", typeof(string), typeof(wndProgressBar), new PropertyMetadata((string)"This is Foot"));
 
 
 
@@ -57,7 +57,7 @@ namespace Anything.Form
 
         // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(double), typeof(wndProgressBar), new PropertyMetadata(0.0));
+            DependencyProperty.Register("Value", typeof(double), typeof(wndProgressBar), new PropertyMetadata((double)0.0));
 
 
 
@@ -71,7 +71,7 @@ namespace Anything.Form
 
         // Using a DependencyProperty as the backing store for Max.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaxProperty =
-            DependencyProperty.Register("Max", typeof(double), typeof(wndProgressBar), new PropertyMetadata(100.0));
+            DependencyProperty.Register("Max", typeof(double), typeof(wndProgressBar), new PropertyMetadata((double)100.0));
 
 
 

@@ -53,7 +53,7 @@ namespace Anything.Form
             set { SetValue(FadeinProperty, value); }
         }
         public static readonly DependencyProperty FadeinProperty =
-            DependencyProperty.Register("Fadein", typeof(double), typeof(wndSettings), new PropertyMetadata((double)3.0, PropertyChanged));
+            DependencyProperty.Register("Fadein", typeof(double), typeof(wndSettings), new PropertyMetadata((double)0.3, PropertyChanged));
 
 
 
@@ -68,7 +68,7 @@ namespace Anything.Form
             set { SetValue(FadeoutProperty, value); }
         }
         public static readonly DependencyProperty FadeoutProperty =
-            DependencyProperty.Register("Fadeout", typeof(double), typeof(wndSettings), new PropertyMetadata((double)3.0, PropertyChanged));
+            DependencyProperty.Register("Fadeout", typeof(double), typeof(wndSettings), new PropertyMetadata((double)0.3, PropertyChanged));
 
 
 

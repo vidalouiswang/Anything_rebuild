@@ -59,4 +59,3 @@ C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\Anything\obj\Debug\Use
 C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\Anything\obj\Debug\UserControls\VisualTagName.baml
 C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\Anything\bin\Debug\Anything.exe.config
 C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\Anything\obj\Debug\Resources\rdExpanderEx.baml
-C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\Anything\obj\Debug\Anything.csprojResolveAssemblyReference.cache

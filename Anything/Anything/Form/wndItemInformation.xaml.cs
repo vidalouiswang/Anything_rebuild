@@ -21,7 +21,7 @@ namespace Anything.Form
             set { SetValue(ItemNameProperty, value); }
         }
         public static readonly DependencyProperty ItemNameProperty =
-            DependencyProperty.Register("ItemName", typeof(string), typeof(wndItemInformation), new PropertyMetadata(""));
+            DependencyProperty.Register("ItemName", typeof(string), typeof(wndItemInformation), new PropertyMetadata((string)""));
 
         public string Path
         {
@@ -29,7 +29,7 @@ namespace Anything.Form
             set { SetValue(PathProperty, value); }
         }
         public static readonly DependencyProperty PathProperty =
-            DependencyProperty.Register("Path", typeof(string), typeof(wndItemInformation), new PropertyMetadata(""));
+            DependencyProperty.Register("Path", typeof(string), typeof(wndItemInformation), new PropertyMetadata((string)""));
 
         public string Arguments
         {
@@ -37,7 +37,7 @@ namespace Anything.Form
             set { SetValue(ArgumentsProperty, value); }
         }
         public static readonly DependencyProperty ArgumentsProperty =
-            DependencyProperty.Register("Arguments", typeof(string), typeof(wndItemInformation), new PropertyMetadata(""));
+            DependencyProperty.Register("Arguments", typeof(string), typeof(wndItemInformation), new PropertyMetadata((string)""));
 
 
         public string TagName
@@ -46,7 +46,7 @@ namespace Anything.Form
             set { SetValue(TagNameProperty, value); }
         }
         public static readonly DependencyProperty TagNameProperty =
-            DependencyProperty.Register("TagName", typeof(string), typeof(wndItemInformation), new PropertyMetadata(""));
+            DependencyProperty.Register("TagName", typeof(string), typeof(wndItemInformation), new PropertyMetadata((string)""));
 
         public ImageSource ItemIcon
         {
@@ -54,7 +54,7 @@ namespace Anything.Form
             set { SetValue(ItemIconProperty, value); }
         }
         public static readonly DependencyProperty ItemIconProperty =
-            DependencyProperty.Register("ItemIcon", typeof(ImageSource), typeof(wndItemInformation), new PropertyMetadata(null));
+            DependencyProperty.Register("ItemIcon", typeof(ImageSource), typeof(wndItemInformation), new PropertyMetadata(new System.Windows.Media.Imaging.BitmapImage()));
 
 
         public string WorkingDirectory
@@ -63,7 +63,7 @@ namespace Anything.Form
             set { SetValue(WorkingDirectoryProperty, value); }
         }
         public static readonly DependencyProperty WorkingDirectoryProperty =
-            DependencyProperty.Register("WorkingDirectory", typeof(string), typeof(wndItemInformation), new PropertyMetadata(""));
+            DependencyProperty.Register("WorkingDirectory", typeof(string), typeof(wndItemInformation), new PropertyMetadata((string)""));
 
 
         public ItemData Itemdata

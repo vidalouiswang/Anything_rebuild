@@ -18,7 +18,7 @@ namespace Anything.Form
             set { SetValue(TipProperty, value); }
         }
         public static readonly DependencyProperty TipProperty =
-            DependencyProperty.Register("Tip", typeof(string), typeof(wndTip), new PropertyMetadata("This is tip"));
+            DependencyProperty.Register("Tip", typeof(string), typeof(wndTip), new PropertyMetadata((string)"This is tip"));
 
         private DispatcherTimer timerFollow = new DispatcherTimer();
         private DispatcherTimer timerFixed = new DispatcherTimer();

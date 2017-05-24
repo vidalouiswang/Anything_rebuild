@@ -16,7 +16,7 @@ namespace Anything.Form
             set { SetValue(ItemNameProperty, value); }
         }
         public static readonly DependencyProperty ItemNameProperty =
-            DependencyProperty.Register("ItemName", typeof(string), typeof(wndArguments), new PropertyMetadata("Name"));
+            DependencyProperty.Register("ItemName", typeof(string), typeof(wndArguments), new PropertyMetadata((string)"Name"));
 
         public string Arguments
         {
@@ -24,7 +24,7 @@ namespace Anything.Form
             set { SetValue(ArgumentsProperty, value); }
         }
         public static readonly DependencyProperty ArgumentsProperty =
-            DependencyProperty.Register("Arguments", typeof(string), typeof(wndArguments), new PropertyMetadata(""));
+            DependencyProperty.Register("Arguments", typeof(string), typeof(wndArguments), new PropertyMetadata((string)""));
 
         private ItemData it = null;
         public ItemData It
