@@ -105,14 +105,16 @@ namespace Anything.Form
             //填充信息
             this.Item = item;
             this.Itemdata = item.refItemData;
-            this.ItemName = item.Name_Property;
-            this.Path = item.refItemData.Path;
-            this.Arguments = item.refItemData.Arguments;
-            this.ItemIcon = item.refItemData.Icon_imagesource;
-            this.WorkingDirectory = item.refItemData.WorkingDirectory;
-            this.Itemdata = item.refItemData;
-            this.TagName = item.TagName;
-            this.txtHotKey.InputKeyString(itemdata.HotKey);
+            this.ItemName = this.Itemdata.Name;
+            this.Path = this.Itemdata.Path;
+            this.Arguments = this.Itemdata.Arguments;
+            this.ItemIcon = GetIcon.ByteArrayToIS(this.Itemdata.Icon);
+            this.WorkingDirectory = this.Itemdata.WorkingDirectory;
+            this.TagName = this.Itemdata.TagName;
+            this.txtHotKey.InputKeyString(this.Itemdata.HotKey);
+
+
+
             this.vtnMain.GetTags(Manage.WindowMain.Recent);
 
             this.Show();
@@ -141,8 +143,7 @@ namespace Anything.Form
 
             if (this.ItemIcon != null && this.itemdata.IconChanged)
             {
-                itemdata.Icon_imagesource = this.ItemIcon;
-                itemdata.Icon_byte = GetIcon.ImageSourceToByteArray(this.ItemIcon);
+                itemdata.Icon = GetIcon.ImageSourceToByteArray(this.ItemIcon);
             }
 
             

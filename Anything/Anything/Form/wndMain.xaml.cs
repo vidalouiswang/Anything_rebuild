@@ -153,6 +153,8 @@ namespace Anything.Form
 
         private Key Lastkey=Key.None;
 
+        private ControlBackground wndMainCB = null;
+
         #endregion
 
         #region 构造函数
@@ -262,7 +264,8 @@ namespace Anything.Form
             this.Height = readHeight;
 
 
-            Manage.LoadBackground();
+            wndMainCB = new ControlBackground(Manage.CurrentPath + "Background\\", this.bdrMainForm, 3000);
+
 
             ClearSearch();
 
@@ -277,7 +280,7 @@ namespace Anything.Form
             IsInformationsInitialized = true;
 
             //初始化后台数据
-            Manage.InitializeData();
+            Manage.InitializeProgram();
 
             wndpb.Increase(25);
 
@@ -636,7 +639,7 @@ namespace Anything.Form
 
                     str = str.EndsWith(":Tag Name") ? str.Substring(0, str.Length - 8) : str;
 
-                    SearchValue = Manage.MultiSearch(str);
+                    SearchValue = Search.GetInstance().MultiSearch(str);
 
 
                     if (SearchValue != null)

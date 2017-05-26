@@ -20,7 +20,7 @@ namespace Anything.Class
             //图标byte array
             public byte[] Icon;
             //图标image source
-            public ImageSource IS;
+            ///public ImageSource IS;
             //路径
             public String Path;
             //ID
@@ -46,15 +46,12 @@ namespace Anything.Class
 
             public DataST(string name,
                 string path,
-                string id,
-                ImageSource _is = null,
                 byte[] icon = null,
                 string arguments = "",
-                int isuesd = 0,
+                string workingdirectory = "",
                 int runas = 0,
                 int autorun = 0,
                 int levels = 0,
-                string workingdirectory = "",
                 string tagname = "",
                 HotKeyItem hotkey = null,
                 bool enablehotkey = false)
@@ -62,11 +59,10 @@ namespace Anything.Class
             {
                 Name = name;
                 Path = path;
-                ID = id;
-                IS = _is;
+                ID = ClsMD5.ClsMD5.Encrypt(name + path);
                 Icon = icon;
                 Arguments = arguments;
-                IsUesd = isuesd;
+                IsUesd = 1;
                 RunAs = runas;
                 AutoRun = autorun;
                 Levels = levels;
@@ -85,7 +81,6 @@ namespace Anything.Class
         public bool IsInitialized;
         public String DataStr;
         private DataST data;
-        public bool Rename { get; set; }
 
         private Anoicess.Anoicess.Anoicess objDB = null;
 
@@ -212,8 +207,6 @@ namespace Anything.Class
                     {
                         data.Icon = br.ReadBytes(Count);
                     }
-
-                    data.IS = GetIcon.ByteArrayToIS(data.Icon);
                 }
                 catch
                 {
@@ -292,19 +285,7 @@ namespace Anything.Class
 
         #region 属性
 
-        public ImageSource Icon_imagesource
-        {
-            get
-            {
-                return this.data.IS;
-            }
-            set
-            {
-                this.data.IS = value;
-            }
-        }
-
-        public byte[] Icon_byte
+        public byte[] Icon
         {
             get
             {

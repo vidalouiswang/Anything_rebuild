@@ -6,10 +6,17 @@
              xmlns:local="clr-namespace:Anything.UserControls"
              mc:Ignorable="d" 
              x:Name="ME"
-             d:DesignHeight="300" d:DesignWidth="300" 
+             d:DesignHeight="300"
+             d:DesignWidth="300" 
              MouseDoubleClick="BaseExecute" 
              MouseLeftButtonUp="ME_MouseLeftButtonUp"
-             MouseLeftButtonDown="ME_MouseLeftButtonDown" MouseMove="ME_MouseMove">
+             MouseLeftButtonDown="ME_MouseLeftButtonDown" 
+             MouseMove="ME_MouseMove" SizeChanged="ME_SizeChanged"
+             
+             >
+    <UserControl.Resources>
+        <local:cIcon x:Key="cvtIcon"></local:cIcon>
+    </UserControl.Resources>
     <Border  x:Name="Bdr" Style="{DynamicResource BdrStyle}" >
         <Border.BorderBrush>
             <SolidColorBrush x:Name="scb" Color="#00FFFFFF"/>
@@ -25,10 +32,11 @@
                          Grid.Row="0"
                        >
                 <Viewbox>
-                    <Image x:Name="Img" 
+                    <Image
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Stretch="None"
+                       Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type local:Item}},Path=ImgSrc,Converter={StaticResource cvtIcon}}"
                        >
                         <Image.ContextMenu>
                             <ContextMenu >

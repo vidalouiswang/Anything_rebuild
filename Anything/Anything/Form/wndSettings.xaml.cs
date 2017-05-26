@@ -116,7 +116,7 @@ namespace Anything.Form
                             {
                                 if (i is Item)
                                 {
-                                    ((Item)i).Length = (double)e.NewValue;
+                                    ((Item)i).iLength = (double)e.NewValue;
                                 }
                             }
                         }
@@ -124,7 +124,7 @@ namespace Anything.Form
                         {
                             if (obj is Item)
                             {
-                                ((Item)obj).Length = (double)e.NewValue;
+                                ((Item)obj).iLength = (double)e.NewValue;
                             }
                         }
                     }
@@ -192,7 +192,7 @@ namespace Anything.Form
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             Manage.mSearchEngine.Insert(this.txtSEName.Text, this.txtSEContent.Text);
-            Manage.LoadSE();
+            Manage.LoadSearchEngine();
             Manage.TipPublic.ShowFixed(this, "Done", 10, 10);
         }
 

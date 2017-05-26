@@ -2,11 +2,11 @@
 HotKey{Ctrl+Alt+D1}
 Width{684}
 Height{872}
-Top{13}
 MaxOpacity{0.956643598615917}
 MinOpacity{0.002}
 ShowTimeSpan{0.2}
 HideTimeSpan{0.2}
 ItemSize{72.3598615916955}
+Top{0.5}
+Left{183.5}
 Language{简体中文}
-Left{446}

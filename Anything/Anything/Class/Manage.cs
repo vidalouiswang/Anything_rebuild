@@ -148,9 +148,7 @@ namespace Anything.Class
         //匹配系统引用
         public static Regex reSysRef = new Regex(@"::\{\S+\}");
 
-        public static Regex reKeyword = new Regex(@"([^:]*)?:{1}([^:]*)?:?([^:]*)?");
-
-
+        
         public static string LoadingInnerDataHeader = Application.Current.TryFindResource("VEManageLoadingInnerDataHeader") as string;
 
         public static string LoadingInnerDataFooter = Application.Current.TryFindResource("VEManageLoadingInnerDataFooter") as string;
@@ -162,10 +160,7 @@ namespace Anything.Class
         public static string DefaultTagName = Application.Current.TryFindResource("VEManageDefaultTagName") as string;
 
 
-        public static string rSPLIT = "#SPLIT#";
-
-        public static string rANY = ".*";
-
+        public static double ItemLength = (double)ApplicationInformations.Anything.AppInfoOperations.GetItemSize();
 
         #endregion
 
@@ -182,51 +177,6 @@ namespace Anything.Class
         #endregion
 
         #region public
-
-
-
-        public static void LoadBackground()
-        {
-            string path = "";
-
-            if (System.IO.File.Exists(CurrentPath + "background.jpg"))
-            {
-                path = CurrentPath + "background.jpg";
-            }
-
-            if (System.IO.File.Exists(CurrentPath + "background.png"))
-            {
-                path = CurrentPath + "background.png";
-            }
-
-
-            if (!string.IsNullOrEmpty(path))
-            {
-                FileStream fs=null;
-                try
-                {
-                    fs = new FileStream(path, FileMode.Open);
-                }
-                catch
-                {
-                   
-                }
-                if (fs!=null)
-                {
-                    BitmapImage bi = new BitmapImage();
-
-                    bi.BeginInit();
-
-                    bi.StreamSource = fs;
-
-                    bi.EndInit();
-
-                    ImageBrush ib = new ImageBrush(bi);
-
-                    Manage.WindowMain.bdrMainForm.Background = ib;
-                }
-            }
-        }
 
         public static void ExpanderExOperation(bool Expanded = true)
         {
@@ -436,13 +386,13 @@ namespace Anything.Class
         public static int FindAndInsert(Item item)
         {
             
-            if (!string.IsNullOrEmpty(item.TagName))
+            if (!string.IsNullOrEmpty(item.refItemData.TagName))
             {
                 SelectInsert(item);
             }
             else
             {
-                item.TagName = DefaultTagName;
+                item.refItemData.TagName = DefaultTagName;
                 SelectInsert(item);
             }
 
@@ -468,7 +418,7 @@ namespace Anything.Class
                     exTmp.IsExpanded = true;
 
                     //若标签名相同
-                    if (exTmp.tagName == item.TagName)
+                    if (exTmp.tagName == item.refItemData.TagName)
                     {
                         System.Windows.Controls.WrapPanel wpTmp = (System.Windows.Controls.WrapPanel)exTmp.Content;
 
@@ -483,7 +433,7 @@ namespace Anything.Class
             //如果未找到相同标签名的分组
             if (!IsAdded)
             {
-                ExpanderEx ex = new ExpanderEx(item.TagName);
+                ExpanderEx ex = new ExpanderEx(item.refItemData.TagName);
 
                 ex.Style = Application.Current.FindResource("ExpanderExStyle") as Style;
 
@@ -752,164 +702,98 @@ namespace Anything.Class
             return 0;
         }
 
+      
 
-        public static List<Item> MultiSearch(string keyword)
-        {
 
-            if (!string.IsNullOrEmpty(keyword))
-            {
-                //声明用于存放结果的数组
-                List<Item> rtnValue = new List<Item>();
 
-                //临时pattern
-                string paTmp = "";
 
-                //临时regex
-                Regex reTmp;
-
-                //查找分隔符
-                if (keyword.IndexOf(":") >= 0)
-                {
-
-                    //分割关键字
-                    Match ma = reKeyword.Match(keyword);
-
-                    //取值
-                    string Name = ma.Groups[1].Value.Trim();
-                    string Path = ma.Groups[2].Value.Trim();
-                    string Tag = ma.Groups[3].Value.Trim();
-
-                    
-                    //填充正则表达式
-                    paTmp = !string.IsNullOrEmpty(Name) ? (rANY + Name + rANY) : rANY;
-
-                    paTmp += rSPLIT;
-
-                    paTmp += !string.IsNullOrEmpty(Path) ? (rANY + Path + rANY) : rANY;
-
-                    paTmp += rSPLIT;
-
-                    paTmp += !string.IsNullOrEmpty(Tag) ? (rANY + Tag + rANY) : rANY;
-
-                    reTmp = new Regex(paTmp, RegexOptions.IgnoreCase);
-
-                    innerSearch(rtnValue, reTmp);
-                }
-                else
-                {
-                    paTmp = rANY + keyword + rANY;
-
-                    reTmp = new Regex(paTmp,RegexOptions.IgnoreCase);
-
-                    innerSearch(rtnValue, reTmp);
-                }
-
-                return rtnValue;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        private static void innerSearch(List<Item> rtnValue,Regex reTmp)
-        {
-
-            string nptUnion = "";
-
-            foreach (object obj in Manage.WindowMain.Recent.Children)
-            {
-                if (obj is ExpanderEx)
-                {
-                    WrapPanel wpTmp = (WrapPanel)((Expander)obj).Content;
-
-                    foreach (Item i in wpTmp.Children)
-                    {
-                        nptUnion = i.Name_Property + rSPLIT + i.Path + rSPLIT + i.TagName;
-
-                        if (reTmp.IsMatch(nptUnion))
-                        {
-                            rtnValue.Add(i);
-                        }
-                    }
-                }
-                else
-                {
-                    Item item = (Item)obj;
-
-                    nptUnion = item.Name + rSPLIT + item.Path + rSPLIT + item.TagName;
-
-                    if (reTmp.IsMatch(nptUnion))
-                    {
-                        rtnValue.Add(item);
-                    }
-                }
-            }
-        }
+        #region 初始化
 
         /// <summary>
         /// 初始化数据
         /// </summary>
         /// <param name="wnd_"></param>
         /// <param name="wp"></param>
-        public static void InitializeData()
+        public static void InitializeProgram()
         {
-            //保存主窗体相关信息
-            WindowMainRect.left = (int)WindowMain.Left;
-            WindowMainRect.right = (int)(WindowMain.Left + WindowMain.ActualWidth);
-            WindowMainRect.top = (int)WindowMain.Top;
-            WindowMainRect.bottom = (int)(WindowMain.Top + WindowMain.ActualHeight);
+            InitializeWindowMainInfo();
 
-            //创建进度窗体实例
-            wndProgressBar wndpb = new wndProgressBar(LoadingInnerDataHeader, LoadingInnerDataFooter, mMAIN.GetAllChild().Count);
+            LoadData();
 
-            //wnd_.Opacity = 0.000001;
-            WindowMain.WindowState = System.Windows.WindowState.Normal;
+            LoadKeywordRecentData();
 
-            int ChildCount = mMAIN.GetAllChild().Count;
+            LoadSearchEngine();
+
+            WindowMain.Opacity = ApplicationInformations.Anything.AppInfoOperations.GetMaxOpacity();
+        }
+
+
+        /// <summary>
+        /// 加载最近使用的关键字
+        /// </summary>
+        public static void LoadKeywordRecentData()
+        {
+            List<string> tmp = mKeywordRecent.ReadAllString();
+
+            if (tmp != null)
+                listOfRecentKeyword = tmp;
+        }
+
+        /// <summary>
+        /// 初始化主窗体位置信息
+        /// </summary>
+        public static void InitializeWindowMainInfo()
+        {
+            if (WindowMain != null)
+            {
+                //保存主窗体相关信息
+                WindowMainRect.left = (int)WindowMain.Left;
+                WindowMainRect.right = (int)(WindowMain.Left + WindowMain.ActualWidth);
+                WindowMainRect.top = (int)WindowMain.Top;
+                WindowMainRect.bottom = (int)(WindowMain.Top + WindowMain.ActualHeight);
+
+                WindowMain.WindowState = System.Windows.WindowState.Normal;
+            }
+            else
+            {
+                UnregisterAllHotKeys();
+
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
+            }
+        }
+
+        /// <summary>
+        /// 加载项目数据
+        /// </summary>
+        public static void LoadData()
+        {
+            List<Anoicess.Anoicess.Anoicess> Child = new List<Anoicess.Anoicess.Anoicess>();
+
+            Child = mMAIN.GetAllChild();
 
             //获取项目尺寸
             double ItemSize = ApplicationInformations.Anything.AppInfoOperations.GetItemSize();
 
             //开始加载数据
-            for (int i = 0; i < ChildCount; i++)
+            foreach (Anoicess.Anoicess.Anoicess ai in Child)
             {
-
-                ItemData itemdata = new ItemData(mMAIN.GetAllChild()[i]);
+                ItemData itemdata = new ItemData(ai);
 
                 listOfInnerData.Add(itemdata);
 
-                Item item = new Item(itemdata.ID, itemdata.Name, itemdata.Icon_imagesource, ItemSize, itemdata.TagName);
-
-                item.Path = itemdata.Path;
-
-                item.RefItemData = itemdata;
-
-                item.Margin = new System.Windows.Thickness(5);
+                Item item = new Item(itemdata);
 
                 item.Click += Item_Click;
 
                 FindAndInsert(item);
-
-                wndpb.Increase();
             }
-
-            WindowMain.Opacity = ApplicationInformations.Anything.AppInfoOperations.GetMaxOpacity();
-
-            List<string> tmp = mKeywordRecent.ReadAllString();
-
-            if (tmp != null)
-                listOfRecentKeyword = tmp;
-
-            LoadSE();
-
-            wndpb.Increase();
         }
+
 
         /// <summary>
         /// 加载搜索引擎资源
         /// </summary>
-        public static void LoadSE()
+        public static void LoadSearchEngine()
         {
 
             listOfSearchEngineInnerData.Clear();
@@ -930,6 +814,8 @@ namespace Anything.Class
             }
 
         }
+        #endregion
+
 
         /// <summary>
         /// 用于刷新项目的图标
@@ -942,12 +828,7 @@ namespace Anything.Class
             ((System.Windows.Controls.WrapPanel)item.Parent).Children.Remove(item);
 
             //构造新的Item对象
-            Item newOne = new Item(itemdata.ID, itemdata.Name, itemdata.Icon_imagesource, ApplicationInformations.Anything.AppInfoOperations.GetItemSize(), itemdata.TagName);
-
-            //填充基本信息
-            newOne.Path = itemdata.Path;
-            newOne.Margin = new System.Windows.Thickness(5);
-            newOne.RefItemData = itemdata;
+            Item newOne = new Item(itemdata);
 
             //添加消息处理
             newOne.Click += Item_Click;
@@ -1007,8 +888,6 @@ namespace Anything.Class
                     }
                 }
 
-
-
                 //获取图标
                 byte[] b;
 
@@ -1049,17 +928,13 @@ namespace Anything.Class
                     }
                 }
 
-                string id = ClsMD5.ClsMD5.Encrypt(Name + Path);
+                //构造itemdata类对象
+                ItemData itemdata = new ItemData(new ItemData.DataST(Name, Path, b, Arguments, subPath));
 
-                ImageSource IS = GetIcon.ByteArrayToIS(b);
+                Manage.listOfInnerData.Add(itemdata);
 
                 //构造UI对象
-                Item item = new Item(id, Name, IS, ApplicationInformations.Anything.AppInfoOperations.GetItemSize(), tagName);
-
-                item.Path = Path;
-
-                //构造itemdata类对象
-                ItemData itemdata = new ItemData(new ItemData.DataST(Name, Path, id, IS, b, "", 1, 0, 0));
+                Item item = new Item(itemdata);
 
                 bool itemexists = false;
 
@@ -1077,25 +952,6 @@ namespace Anything.Class
                     TipPublic.ShowFixed(WindowMain, ItemExists);
                     return null;
                 }
-                    
-
-                if (!string.IsNullOrEmpty(tagName))
-                    itemdata.TagName = tagName;
-
-                //有参数则填充参数
-                if (!string.IsNullOrEmpty(Arguments.Trim()))
-                    itemdata.Arguments = Arguments;
-
-                //填充工作路径
-                if (!string.IsNullOrEmpty(subPath.Trim()))
-                    itemdata.WorkingDirectory = subPath;
-
-
-                Manage.listOfInnerData.Add(itemdata);
-
-                item.RefItemData = itemdata;
-
-                item.Margin = new System.Windows.Thickness(5);
 
                 item.Click += Item_Click;
 
@@ -1130,6 +986,10 @@ namespace Anything.Class
         //    }
         //    tmp = null;
         //}
+
+
+
+        #region 添加系统引用
 
         /// <summary>
         /// 添加我的电脑
@@ -1175,6 +1035,9 @@ namespace Anything.Class
         {
             return AddItem(NetworkNeighborhood, "Network Neighborhood");
         }
+
+        #endregion
+
 
         /// <summary>
         /// 用于保存搜索关键字，暂未完成

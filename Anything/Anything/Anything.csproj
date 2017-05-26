@@ -30,10 +30,11 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -81,6 +82,7 @@
     </ApplicationDefinition>
     <Compile Include="Class\Animation.cs" />
     <Compile Include="Class\constForSize.cs" />
+    <Compile Include="Class\ControlBackground.cs" />
     <Compile Include="Class\FileOperation.cs" />
     <Compile Include="Class\GetIcon.cs" />
     <Compile Include="Class\HotKey.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Class\ItemData.cs" />
     <Compile Include="Class\Manage.cs" />
     <Compile Include="Class\Plugins.cs" />
+    <Compile Include="Class\Search.cs" />
     <Compile Include="Form\wndAdd.xaml.cs">
       <DependentUpon>wndAdd.xaml</DependentUpon>
     </Compile>
