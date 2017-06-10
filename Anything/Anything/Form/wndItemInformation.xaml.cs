@@ -129,16 +129,16 @@ namespace Anything.Form
 
         private void SaveSettings()
         {
-            if (!string.IsNullOrEmpty(this.ItemName.Trim()))
+            if (!string.IsNullOrEmpty(this.ItemName))
                 itemdata.Name = this.ItemName;
 
-            if (!string.IsNullOrEmpty(this.Path.Trim()))
+            if (!string.IsNullOrEmpty(this.Path))
                 itemdata.Path = this.Path;
 
-            if (!string.IsNullOrEmpty(this.Arguments.Trim()))
+            if (!string.IsNullOrEmpty(this.Arguments))
                 itemdata.Arguments = this.Arguments;
 
-            if (!string.IsNullOrEmpty(this.WorkingDirectory.Trim()))
+            if (!string.IsNullOrEmpty(this.WorkingDirectory))
                 itemdata.WorkingDirectory = this.WorkingDirectory;
 
             if (this.ItemIcon != null && this.itemdata.IconChanged)

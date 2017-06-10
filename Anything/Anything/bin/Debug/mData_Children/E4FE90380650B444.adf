@@ -1,0 +1,12 @@
+﻿ID{E4FE90380650B444}
+Name{Root}
+Icon{138055}
+Path{C:\Users\vidam\Desktop\dtemp\Root.png}
+Arguments{Root.png}
+Runas{0}
+Autorun{0}
+Levels{0}
+WorkingDirectory{C:\Users\vidam\Desktop\dtemp\}
+HotKey{,,}
+EnableHotKey{False}
+TagName{默认分组}

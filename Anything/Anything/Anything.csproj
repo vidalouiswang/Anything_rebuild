@@ -51,9 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Anoicess\Anoicess\Anoicess\bin\Release\Anoicess.dll</HintPath>
     </Reference>
-    <Reference Include="ApplicationInformations, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ApplicationInformations, Version=1.0.1.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Anything_wpf\Anything[wpf_main]\ApplicationInformations\bin\Release\ApplicationInformations.dll</HintPath>
+      <HintPath>..\..\ApplicationInformations\bin\Release\ApplicationInformations.dll</HintPath>
     </Reference>
     <Reference Include="ClsMD5">
       <HintPath>..\..\..\Anything_wpf\Anything[wpf_main]\Anything[wpf_main]\bin\Debug\ClsMD5.dll</HintPath>
@@ -84,10 +84,18 @@
     <Compile Include="Class\constForSize.cs" />
     <Compile Include="Class\ControlBackground.cs" />
     <Compile Include="Class\FileOperation.cs" />
+    <Compile Include="Class\FileType\ImageHandler.cs" />
+    <Compile Include="Class\FileType\InputInfo.cs" />
+    <Compile Include="Class\FileType\LinkHandler.cs" />
+    <Compile Include="Class\FileType\SysRefHandler.cs" />
+    <Compile Include="Class\FileType\TypeHandler.cs" />
+    <Compile Include="Class\FileType\TypeSelector.cs" />
+    <Compile Include="Class\FileType\UniversalHandler.cs" />
     <Compile Include="Class\GetIcon.cs" />
     <Compile Include="Class\HotKey.cs" />
     <Compile Include="Class\HotKeyItem.cs" />
     <Compile Include="Class\ItemData.cs" />
+    <Compile Include="Class\LinkFile.cs" />
     <Compile Include="Class\Manage.cs" />
     <Compile Include="Class\Plugins.cs" />
     <Compile Include="Class\Search.cs" />

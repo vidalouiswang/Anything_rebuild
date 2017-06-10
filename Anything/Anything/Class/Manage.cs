@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Anything.Class.FileType;
 using Anything.Form;
 using Anything.UserControls;
 using IWshRuntimeLibrary;
@@ -148,7 +149,7 @@ namespace Anything.Class
         //匹配系统引用
         public static Regex reSysRef = new Regex(@"::\{\S+\}");
 
-        
+
         public static string LoadingInnerDataHeader = Application.Current.TryFindResource("VEManageLoadingInnerDataHeader") as string;
 
         public static string LoadingInnerDataFooter = Application.Current.TryFindResource("VEManageLoadingInnerDataFooter") as string;
@@ -180,7 +181,7 @@ namespace Anything.Class
 
         public static void ExpanderExOperation(bool Expanded = true)
         {
-            if (WindowMain!=null)
+            if (WindowMain != null)
             {
                 foreach (object obj in WindowMain.Recent.Children)
                 {
@@ -218,7 +219,7 @@ namespace Anything.Class
                 }
 
                 //检查是否已找到对应的语言资源
-                if (rdSelected!=null)
+                if (rdSelected != null)
                 {
 
                     //定义用于寻找字典集合中的语言字典名字的正则
@@ -248,7 +249,7 @@ namespace Anything.Class
                     //将指定的语言字典添加到资源字典集合
                     Application.Current.Resources.MergedDictionaries.Insert(0, rdSelected);
 
-                    
+
                     //更新部分非绑定的字符串值
                     WindowMain.KeywordTip = Application.Current.TryFindResource("VEwndMainKeywordTip") as string;
 
@@ -343,7 +344,7 @@ namespace Anything.Class
 
                 }
 
-                if (listOfLanguage.Count>0)
+                if (listOfLanguage.Count > 0)
                 {
                     ChangeLanguage(ApplicationInformations.Anything.AppInfoOperations.GetLanguage());
                 }
@@ -385,7 +386,7 @@ namespace Anything.Class
         /// <returns></returns>
         public static int FindAndInsert(Item item)
         {
-            
+
             if (!string.IsNullOrEmpty(item.refItemData.TagName))
             {
                 SelectInsert(item);
@@ -702,7 +703,7 @@ namespace Anything.Class
             return 0;
         }
 
-      
+
 
 
 
@@ -846,101 +847,18 @@ namespace Anything.Class
         /// <returns></returns>
         public static Item AddItem(String Path, string Name = "", string Arguments = "", string tagName = "")
         {
-            //try
+            TypeSelector ts = new TypeSelector(new InputInfo(Path, Name, Arguments, tagName));
+
+            if (ts.IsInitialized)
             {
-                //检查路径
-                CheckPath(Path);
-
-                string subPath = "";
-
-                if (!string.IsNullOrEmpty(lnkInfo.Name))
-                {
-                    Path = lnkInfo.TargetPath;
-                    if (string.IsNullOrEmpty(Name))
-                    {
-                        Name = lnkInfo.Name;
-                        if (string.IsNullOrEmpty(Arguments))
-                            Arguments = lnkInfo.Arguments;
-
-                        if (string.IsNullOrEmpty(lnkInfo.WorkingDirectory))
-                        {
-                            subPath = GetSubPath(Path);
-                        }
-                        else
-                        {
-                            subPath = lnkInfo.WorkingDirectory;
-                        }
-                    }
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(Name))
-                        Name = FileOperation.GetNameWithoutExtension(FileOperation.GetName(Path));
-
-                    subPath = GetSubPath(Path);
-
-                    if (string.IsNullOrEmpty(Arguments))
-                    {
-                        if (!new Regex("::\\{.+\\}").IsMatch(Path))
-                        {
-                            Arguments = GetArgumentsFromFullPath(Path);
-                        }
-                    }
-                }
-
-                //获取图标
-                byte[] b;
-
-                if (FileOperation.IsFile(Path) == -1)
-                {
-                    b = GetResourcesIcon("folder.png");
-                }
-                else
-                {
-                    //系统引用
-                    if (Path.IndexOf("{") > 0 && Path.IndexOf("}") > 0)
-                    {
-                        switch (Path)
-                        {
-                            case MyComputer:
-                                b = GetResourcesIcon("computer.png");
-                                break;
-                            case ControlPanel:
-                                b = GetResourcesIcon("controlpanel.png");
-                                break;
-                            case MyDocument:
-                                b = GetResourcesIcon("mydocument.png");
-                                break;
-                            case RecycleBin:
-                                b = GetResourcesIcon("recyclebin.png");
-                                break;
-                            case NetworkNeighborhood:
-                                b = GetResourcesIcon("networkneighborhood.png");
-                                break;
-                            default:
-                                b = GetIcon.GetIconByteArray(Path);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        b = GetIcon.GetIconByteArray(Path);
-                    }
-                }
-
                 //构造itemdata类对象
-                ItemData itemdata = new ItemData(new ItemData.DataST(Name, Path, b, Arguments, subPath));
-
-                Manage.listOfInnerData.Add(itemdata);
-
-                //构造UI对象
-                Item item = new Item(itemdata);
+                ItemData itemdata = new ItemData(new ItemData.DataST(ts.TH.Name, ts.TH.Path, ts.TH.Icon, ts.TH.Arguments, ts.TH.SubPath));
 
                 bool itemexists = false;
 
                 foreach (ItemData idd in listOfInnerData)
                 {
-                    if(idd.ID==itemdata.ID)
+                    if (idd.ID == itemdata.ID)
                     {
                         itemexists = true;
                         break;
@@ -953,40 +871,22 @@ namespace Anything.Class
                     return null;
                 }
 
+                Manage.listOfInnerData.Add(itemdata);
+
+                //构造UI对象
+                Item item = new Item(itemdata);
+
                 item.Click += Item_Click;
 
                 return item;
             }
+            else
+            {
+                return null;
+            }
+
 
         }
-
-        ///// <summary>
-        ///// 移除项目
-        ///// </summary>
-        ///// <param name="Parent"></param>
-        ///// <param name="ID"></param>
-        //public static void RemoveItem(object Parent, String ID)
-        //{
-        //    System.Windows.Controls.WrapPanel wp = (System.Windows.Controls.WrapPanel)Parent;
-
-        //    Item tmp = null;
-
-        //    foreach (Item i in wp.Children)
-        //    {
-        //        if (i.ID == ID)
-        //        {
-        //            wp.Children.Remove(i);
-        //            mMAIN.RemoveChild(i.Name_Property);
-        //            i.RefItemData.Dispose();
-        //            listOfInnerData.Remove(i.RefItemData);
-        //            i.Dispose();
-        //            tmp = i;
-        //            break;
-        //        }
-        //    }
-        //    tmp = null;
-        //}
-
 
 
         #region 添加系统引用
@@ -1055,30 +955,6 @@ namespace Anything.Class
 
         #region private
 
-        /// <summary>
-        /// 检查提供的路径，判断是否lnk文件
-        /// </summary>
-        /// <param name="path"></param>
-        private static void CheckPath(string path)
-        {
-            if (path.ToLower().IndexOf(".lnk") >= 0)
-            {
-                WshShell shell = new WshShell();
-                IWshShortcut iss = (IWshShortcut)shell.CreateShortcut(path);
-                lnkInfo.Name = FileOperation.GetNameWithoutExtension(FileOperation.GetName(path));
-                lnkInfo.TargetPath = iss.TargetPath;
-                lnkInfo.WorkingDirectory = iss.WorkingDirectory;
-                lnkInfo.Arguments = iss.Arguments;
-            }
-            else
-            {
-                lnkInfo.Name = "";
-                lnkInfo.TargetPath = path;
-                lnkInfo.WorkingDirectory = "";
-                lnkInfo.Arguments = "";
-            }
-
-        }
 
         /// <summary>
         /// 处理Item的点击事件
@@ -1103,86 +979,7 @@ namespace Anything.Class
 
         }
 
-        /// <summary>
-        /// 从资源中获取指定的图片
-        /// </summary>
-        /// <param name="Name"></param>
-        /// <returns></returns>
-        private static byte[] GetResourcesIcon(string Name)
-        {
-            byte[] b;
-            System.Windows.Resources.StreamResourceInfo sri = System.Windows.Application.GetResourceStream(new Uri("/Resources/" + Name, UriKind.Relative));
-
-            BinaryReader br = new BinaryReader(sri.Stream);
-
-            b = br.ReadBytes((int)sri.Stream.Length);
-
-            br.Close();
-            br = null;
-            return b;
-
-        }
-
-        /// <summary>
-        /// 获取子路径
-        /// </summary>
-        /// <param name="Path"></param>
-        /// <returns></returns>
-        private static string GetSubPath(string Path)
-        {
-            int LastPos = Path.LastIndexOf("\\");
-            if (LastPos > 0)
-            {
-                return Path.Substring(0, LastPos + 1);
-            }
-            else
-                return Path;
-        }
-
-        /// <summary>
-        /// 从路径获取参数
-        /// </summary>
-        /// <param name="Path"></param>
-        /// <returns></returns>
-        private static string GetArgumentsFromFullPath(string Path)
-        {
-            string FileNameWithExtension = FileOperation.GetName(Path);
-            if (!string.IsNullOrEmpty(FileNameWithExtension.Trim()))
-            {
-                int LastPos = Path.LastIndexOf(FileNameWithExtension);
-                if (LastPos >= 0)
-                {
-                    int spaceIndex = FileNameWithExtension.LastIndexOf(" ");
-                    int MinusIndex = FileNameWithExtension.LastIndexOf("-");
-                    int speatorIndex = FileNameWithExtension.LastIndexOf("/");
-
-                    if (spaceIndex >= 0)
-                    {
-                        if (MinusIndex >= 0)
-                        {
-                            LastPos += MinusIndex;
-                        }
-                        else
-                        {
-                            LastPos += spaceIndex;
-                        }
-                    }
-                    else if (MinusIndex >= 0)
-                    {
-                        LastPos += MinusIndex;
-                    }
-                    else if (speatorIndex >= 0)
-                    {
-                        LastPos += speatorIndex;
-                    }
-
-                    return Path.Substring(LastPos, Path.Length - LastPos);
-                }
-                else return "";
-            }
-            else return "";
-        }
-
+       
         #endregion
 
     }

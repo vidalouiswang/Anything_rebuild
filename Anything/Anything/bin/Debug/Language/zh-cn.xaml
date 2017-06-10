@@ -66,7 +66,8 @@
     <sys:String x:Key="VEwndSettingsTBSEName">名称:</sys:String>
     <sys:String x:Key="VEwndSettingsTBSEURL">地址:</sys:String>
     <sys:String x:Key="VEwndSettingsBtnSEAdd">添加</sys:String>
-
+    <sys:String x:Key="VEwndSettingsTBBCI">背景更换间隔时间:</sys:String>
+    <sys:String x:Key="VEwndSettingsTBBAI">背景更换动画时间:</sys:String>
 
     <!--Item UserControl-->
     <sys:String x:Key="VEItemMNOpen">打开(_O)</sys:String>

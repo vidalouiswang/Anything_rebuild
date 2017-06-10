@@ -1,0 +1,12 @@
+﻿ID{132F1E7979082778}
+Name{monitor}
+Icon{7488}
+Path{C:\Users\vidam\Desktop\dtemp\monitor.ico}
+Arguments{monitor.ico}
+Runas{0}
+Autorun{0}
+Levels{0}
+WorkingDirectory{C:\Users\vidam\Desktop\dtemp\}
+HotKey{,,}
+EnableHotKey{False}
+TagName{默认分组}

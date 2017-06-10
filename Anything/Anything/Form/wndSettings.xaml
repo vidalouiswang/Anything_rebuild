@@ -7,8 +7,8 @@
         xmlns:uc="clr-namespace:Anything.UserControls"
         mc:Ignorable="d"
         Title="wndSettings" 
-        Height="362" 
-        Width="600" 
+        Height="800" 
+        Width="1000" 
         MouseMove="Window_MouseMove"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource ChildFormStyle}">
@@ -133,6 +133,39 @@
                                                MaxWidth="50"></TextBlock>
                                 </StackPanel>
 
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock 
+                                        Text="{DynamicResource VEwndSettingsTBBCI}"
+                                               Style="{StaticResource TextBlockStyle}"></TextBlock>
+
+                                    <Slider x:Name="sldrBCI" Width="300" VerticalAlignment="Center"
+                                            Maximum="18000" Minimum="1"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                        AncestorType=local:wndSettings},Path=BCI,Mode=TwoWay}"
+                                            MouseMove="sldr_MouseMove" SmallChange="1"></Slider>
+
+                                    <TextBlock Style="{StaticResource TextBlockStyle}"
+                                               Text="{Binding ElementName=sldrBCI,Path=Value}"
+                                               MaxWidth="500"></TextBlock>
+                                </StackPanel>
+
+
+                                
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock 
+                                        Text="{DynamicResource VEwndSettingsTBBAI}"
+                                               Style="{StaticResource TextBlockStyle}"></TextBlock>
+
+                                    <Slider x:Name="sldrBAI" Width="300" VerticalAlignment="Center"
+                                            Maximum="18000" Minimum="1"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                        AncestorType=local:wndSettings},Path=BAI,Mode=TwoWay}"
+                                            MouseMove="sldr_MouseMove"></Slider>
+
+                                    <TextBlock Style="{StaticResource TextBlockStyle}"
+                                               Text="{Binding ElementName=sldrBAI,Path=Value}"
+                                               MaxWidth="500"></TextBlock>
+                                </StackPanel>
 
                             </StackPanel>
 

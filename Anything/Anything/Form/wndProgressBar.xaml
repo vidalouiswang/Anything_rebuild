@@ -9,7 +9,11 @@
         Title="wndProgressBar"
         Height="130"
         Width="500"
-        Style="{StaticResource ChildFormStyle}">
+        Opacity="0.9"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="Transparent">
+    
     <Border x:Name="BdrOut" Background="#aaeeeeee" CornerRadius="5" BorderThickness="2" Width="auto" Height="auto" >
         <Border Background="#DE161616" BorderThickness="1" CornerRadius="5" Width="{Binding ElementName=BdrOut,Path=Width}">
             <StackPanel x:Name="spMain" Orientation="Vertical" VerticalAlignment="Center">

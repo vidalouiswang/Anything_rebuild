@@ -19,7 +19,7 @@
 
         <Border x:Name="bdrAC" Margin="5,0,0,0" Background="Green"
                     Width="{Binding ElementName=bdrAC,Path=ActualHeight}"
-                    Height="{Binding ElementName=Me,Path=ActualHeight}"
+                    Height="{Binding ElementName=txtKey,Path=ActualHeight}"
                     CornerRadius="30" 
                     MouseLeftButtonUp="bdrAC_MouseLeftButtonUp">
 

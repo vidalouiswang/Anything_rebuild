@@ -12,10 +12,11 @@ ApplicationInformations
  </summary>
  <returns></returns>
 </member>
-<member name="M:ApplicationInformations.Anything.AppInfoOperations.GetTop">
+<member name="M:ApplicationInformations.Anything.AppInfoOperations.SetLeft(System.Double)">
  <summary>
- 获取Top
+ 设置left
  </summary>
+ <param name="Left"></param>
  <returns></returns>
 </member>
 <member name="M:ApplicationInformations.Anything.AppInfoOperations.SetTop(System.Double)">
@@ -25,11 +26,10 @@ ApplicationInformations
  <param name="Top"></param>
  <returns></returns>
 </member>
-<member name="M:ApplicationInformations.Anything.AppInfoOperations.SetLeft(System.Double)">
+<member name="M:ApplicationInformations.Anything.AppInfoOperations.GetTop">
  <summary>
- 设置left
+ 获取Top
  </summary>
- <param name="Left"></param>
  <returns></returns>
 </member>
 <member name="M:ApplicationInformations.Anything.AppInfoOperations.GetMinOpacity">

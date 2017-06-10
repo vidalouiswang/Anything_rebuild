@@ -1,0 +1,12 @@
+﻿ID{2A50B63B86201A58}
+Name{background}
+Icon{100419}
+Path{C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\Anything\bin\Debug\background.jpg}
+Arguments{background.jpg}
+Runas{0}
+Autorun{0}
+Levels{0}
+WorkingDirectory{C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\Anything\bin\Debug\}
+HotKey{,,}
+EnableHotKey{False}
+TagName{默认分组}

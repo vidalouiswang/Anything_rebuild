@@ -57,3 +57,4 @@ C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\Anything\obj\Release\A
 C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\Anything\obj\Release\Anything.Properties.Resources.resources
 C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\Anything\obj\Release\Anything.csproj.GenerateResource.Cache
 C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\Anything\obj\Release\Anything.exe
+C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\Anything\obj\Release\Anything.csprojResolveAssemblyReference.cache

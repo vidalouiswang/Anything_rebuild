@@ -85,6 +85,32 @@ namespace Anything.Form
 
 
 
+        public int BCI
+        {
+            get { return (int)GetValue(BCIProperty); }
+            set { SetValue(BCIProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BCI.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BCIProperty =
+            DependencyProperty.Register("BCI", typeof(int), typeof(wndSettings), new PropertyMetadata((int)10, PropertyChanged));
+
+
+
+        public int BAI
+        {
+            get { return (int)GetValue(BAIProperty); }
+            set { SetValue(BAIProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BAI.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BAIProperty =
+            DependencyProperty.Register("BAI", typeof(int), typeof(wndSettings), new PropertyMetadata((int)1, PropertyChanged));
+
+
+
+
+
 
         private static void PropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
@@ -130,6 +156,13 @@ namespace Anything.Form
                     }
 
                     break;
+
+                case "BCI":
+                    AppInfoOperations.SetBackgroundIntervalMilliseconds((int)e.NewValue * 1000);
+                    break;
+                case "BAI":
+                    AppInfoOperations.SetBackgroundAnimationIntervalMilliseconds((int)e.NewValue * 1000);
+                    break;
                 default:
                     break;
 
@@ -168,6 +201,8 @@ namespace Anything.Form
             this.Fadein = AppInfoOperations.GetShowTimeSpan();
             this.Fadeout = AppInfoOperations.GetHideTimeSpan();
             this.ItemSize = AppInfoOperations.GetItemSize();
+            this.BCI = AppInfoOperations.GetBackgroundIntervalMilliseconds() / 1000;
+            this.BAI = AppInfoOperations.GetBackgroundAnimationIntervalMilliseconds() / 1000;
         }
 
         private void Window_MouseMove(object sender, MouseEventArgs e)

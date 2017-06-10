@@ -264,8 +264,7 @@ namespace Anything.Form
             this.Height = readHeight;
 
 
-            wndMainCB = new ControlBackground(Manage.CurrentPath + "Background\\", this.bdrMainForm, 3000);
-
+            wndMainCB = new ControlBackground(Manage.CurrentPath + "Background\\",new Packer(this.bdrMainForm),ApplicationInformations.Anything.AppInfoOperations.GetBackgroundIntervalMilliseconds(),true);
 
             ClearSearch();
 
@@ -334,6 +333,13 @@ namespace Anything.Form
                 Manage.WindowMainRect.right = (int)(this.Left + this.ActualWidth);
                 Manage.WindowMainRect.top = (int)this.Top;
                 Manage.WindowMainRect.bottom = (int)(this.Top + this.ActualHeight);
+
+                //边缘吸附
+                if (this.Left <= 50 && this.Left > 0)
+                    this.Left = 0;
+
+                if (this.Top <= 50 && this.Top > 0)
+                    this.Top = 0;
             }
 
         }

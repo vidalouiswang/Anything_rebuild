@@ -2,37 +2,88 @@
 
 Namespace Anything
     Public NotInheritable Class AppInfoOperations
-        Private Shared dbInformation As New Anoicess.Anoicess.Anoicess("dbInformation")
 
+#Region "数据库"
+        Private Shared dbInformation As New Anoicess.Anoicess.Anoicess("dbInformation")
+#End Region
+
+#Region "构造"
         Private Sub New()
         End Sub
+
+#End Region
+
 #Region "基础信息"
 
+#Region "任意参数"
+        Public Shared Function GetAny(InfoName As String) As Object
+            If Not String.IsNullOrEmpty(InfoName) Then
+                Dim rtnValue As Object = Nothing
+
+                rtnValue = dbInformation.ReadFirstByName(InfoName)
+
+                If Not String.IsNullOrEmpty(rtnValue) Then
+                    Return rtnValue
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        End Function
+
+        Public Shared Function SetAny(InfoName As String, Value As Object) As Integer
+            If (Not String.IsNullOrEmpty(InfoName)) And (Value <> Nothing) Then
+
+                If dbInformation.Insert(InfoName, Value) = 0 Then
+                    Return 0
+                Else
+                    Return -1
+                End If
+            Else
+                Return -1
+            End If
+        End Function
+
+#End Region
+
+#Region "Left"
         ''' <summary>
         ''' 获取Left
         ''' </summary>
         ''' <returns></returns>
         Public Shared Function GetLeft() As Double
             Dim rtnValue As String = dbInformation.ReadFirstByName("Left")
-            If rtnValue = Nothing Then
+
+            If String.IsNullOrEmpty(rtnValue) Then
                 rtnValue = "10"
                 dbInformation.Insert("Left", rtnValue)
             End If
+
             Return Convert.ToDouble(rtnValue)
         End Function
 
         ''' <summary>
-        ''' 获取Top
+        ''' 设置left
         ''' </summary>
+        ''' <param name="Left"></param>
         ''' <returns></returns>
-        Public Shared Function GetTop() As Double
-            Dim rtnValue As String = dbInformation.ReadFirstByName("Top")
-            If rtnValue = Nothing Then
-                rtnValue = "10"
-                dbInformation.Insert("Top", rtnValue)
+        Public Shared Function SetLeft(Left As Double) As Integer
+            If Not Left = Nothing Then
+                If Left >= 0 Then
+                    dbInformation.Insert("Left", Left.ToString)
+                Else
+                    Return -1
+                End If
+            Else
+                Return -1
             End If
-            Return Convert.ToDouble(rtnValue)
+            Return 0
         End Function
+
+#End Region
+
+#Region "Top"
 
         ''' <summary>
         ''' 设置top
@@ -53,22 +104,21 @@ Namespace Anything
         End Function
 
         ''' <summary>
-        ''' 设置left
+        ''' 获取Top
         ''' </summary>
-        ''' <param name="Left"></param>
         ''' <returns></returns>
-        Public Shared Function SetLeft(Left As Double) As Integer
-            If Not Left = Nothing Then
-                If Left >= 0 Then
-                    dbInformation.Insert("Left", Left.ToString)
-                Else
-                    Return -1
-                End If
-            Else
-                Return -1
+        Public Shared Function GetTop() As Double
+            Dim rtnValue As String = dbInformation.ReadFirstByName("Top")
+            If rtnValue = Nothing Then
+                rtnValue = "10"
+                dbInformation.Insert("Top", rtnValue)
             End If
-            Return 0
+            Return Convert.ToDouble(rtnValue)
         End Function
+
+#End Region
+
+#Region "MinOpacity"
 
         ''' <summary>
         ''' 获取配置信息中的最小透明度参数
@@ -107,6 +157,10 @@ Namespace Anything
             Return 0
         End Function
 
+#End Region
+
+#Region "MaxOpacity"
+
         ''' <summary>
         ''' 获取配置信息中的最大透明度
         ''' </summary>
@@ -144,6 +198,10 @@ Namespace Anything
             Return 0
         End Function
 
+#End Region
+
+#Region "ShowTimeSpan"
+
         ''' <summary>
         ''' 获取显示时长
         ''' </summary>
@@ -176,6 +234,10 @@ Namespace Anything
             Return 0
         End Function
 
+#End Region
+
+#Region "HideTimeSpan"
+
         ''' <summary>
         ''' 获取隐藏时长
         ''' </summary>
@@ -206,6 +268,10 @@ Namespace Anything
             End If
             Return 0
         End Function
+
+#End Region
+
+#Region "Timeout"
 
         ''' <summary>
         ''' 获取超时时间
@@ -239,6 +305,10 @@ Namespace Anything
             Return 0
         End Function
 
+#End Region
+
+#Region "Width"
+
         ''' <summary>
         ''' 获取宽度
         ''' </summary>
@@ -270,6 +340,10 @@ Namespace Anything
             End If
             Return 0
         End Function
+
+#End Region
+
+#Region "Height"
 
         ''' <summary>
         ''' 设置高度
@@ -303,6 +377,10 @@ Namespace Anything
             Return Convert.ToDouble(rtnValue)
         End Function
 
+#End Region
+
+#Region "ItemSize"
+
         ''' <summary>
         ''' 获取项目尺寸
         ''' </summary>
@@ -335,6 +413,10 @@ Namespace Anything
             Return 0
         End Function
 
+#End Region
+
+#Region "HotKey"
+
         ''' <summary>
         ''' 获取热键
         ''' </summary>
@@ -362,6 +444,90 @@ Namespace Anything
                 Return -1
             End If
         End Function
+
+#End Region
+
+#Region "Language"
+
+        Public Shared Function GetLanguage() As String
+            Dim rtnValue As String = dbInformation.ReadFirstByName("Language")
+
+            If String.IsNullOrEmpty(rtnValue) Then
+                rtnValue = New String("English")
+
+                dbInformation.Insert("Language", rtnValue)
+                Return rtnValue
+            Else
+                Return rtnValue
+            End If
+        End Function
+
+        Public Shared Function SetLanguage(Language As String) As Integer
+            If Not String.IsNullOrEmpty(Language) Then
+                dbInformation.Insert("Language", Language)
+                Return 0
+            Else
+                Return -1
+            End If
+        End Function
+
+#End Region
+
+#Region "Background Interval"
+
+        Public Shared Function GetBackgroundIntervalMilliseconds() As Integer
+            Dim rtnValue As String = dbInformation.ReadFirstByName("BackgroundInterval")
+
+            If Not String.IsNullOrEmpty(rtnValue) Then
+                Return Convert.ToInt32(rtnValue)
+            Else
+                dbInformation.Insert("BackgroundInterval", "10000")
+                Return Convert.ToInt32("10000")
+            End If
+        End Function
+
+        Public Shared Function SetBackgroundIntervalMilliseconds(IntervalMilliseconds As Long) As Integer
+            If Not String.IsNullOrEmpty(IntervalMilliseconds) Then
+                dbInformation.Insert("BackgroundInterval", IntervalMilliseconds.ToString)
+                Return 0
+            Else
+                Return -1
+            End If
+        End Function
+
+#End Region
+
+#Region "Background Animation Interval"
+
+        Public Shared Function GetBackgroundAnimationIntervalMilliseconds() As Integer
+            Dim rtnValue As String = dbInformation.ReadFirstByName("BackgroundAnimationInterval")
+
+            If Not String.IsNullOrEmpty(rtnValue) Then
+                Dim tmp As Integer = Convert.ToInt32(rtnValue)
+                If tmp <= Integer.MaxValue Then
+                    Return tmp
+                Else
+                    Return Integer.MaxValue
+                End If
+            Else
+                dbInformation.Insert("BackgroundAnimationInterval", "1000")
+
+                Return Convert.ToInt32("1000")
+            End If
+
+        End Function
+
+        Public Shared Function SetBackgroundAnimationIntervalMilliseconds(AnimationInterval As Integer) As Integer
+            If (AnimationInterval > 0) And (AnimationInterval <= Integer.MaxValue) Then
+                dbInformation.Insert("BackgroundAnimationInterval", AnimationInterval.ToString)
+                Return 0
+            Else
+                Return -1
+            End If
+        End Function
+
+#End Region
+
 #End Region
 
     End Class
