@@ -13,10 +13,8 @@ using IWshRuntimeLibrary;
 
 namespace Anything.Class
 {
-    class Manage
+    static class Manage
     {
-        //不允许实例化使用
-        private Manage() { }
 
         #region 成员变量
 
@@ -97,21 +95,6 @@ namespace Anything.Class
 
         #endregion
 
-        #region lnk
-        //Lnk数据结构，仅主要信息
-        public struct _Link
-        {
-            public string Name;
-            public string WorkingDirectory;
-            public string TargetPath;
-            public string Arguments;
-        }
-
-        //lnk文件信息
-        private static _Link lnkInfo = new _Link();
-
-        #endregion
-
         #region Window
         //提示窗体
         public static wndTip TipPublic = new wndTip();
@@ -126,19 +109,11 @@ namespace Anything.Class
         public static wndMain WindowMain;
         public static IntPtr WindowMainHandle = IntPtr.Zero;
 
-
-        //加载窗体引用
-        //public static wndLoading WindowLoading;
-
-
         public static wndTip tipForItem = new wndTip();
 
         #endregion
 
         #region Others
-
-        ////用于延迟移除项目的timer
-        //public static System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
 
         //用于保存主窗体的位置信息
         public static RECT WindowMainRect = new RECT();
@@ -150,6 +125,7 @@ namespace Anything.Class
         public static Regex reSysRef = new Regex(@"::\{\S+\}");
 
 
+        //部分语言信息
         public static string LoadingInnerDataHeader = Application.Current.TryFindResource("VEManageLoadingInnerDataHeader") as string;
 
         public static string LoadingInnerDataFooter = Application.Current.TryFindResource("VEManageLoadingInnerDataFooter") as string;
@@ -166,6 +142,7 @@ namespace Anything.Class
         #endregion
 
         #region System Reference
+
         //系统引用
         public const string MyComputer = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}";
         public const string MyDocument = "::{450D8FBA-AD25-11D0-98A8-0800361B1103}";
@@ -179,10 +156,18 @@ namespace Anything.Class
 
         #region public
 
+        #region ExpanderEx相关
+
+        /// <summary>
+        /// 收起或展开Expander
+        /// </summary>
+        /// <param name="Expanded"></param>
         public static void ExpanderExOperation(bool Expanded = true)
         {
+            //检查主窗体引用
             if (WindowMain != null)
             {
+                //找到所有ExpanderEx并给予相关操作
                 foreach (object obj in WindowMain.Recent.Children)
                 {
                     if (obj is ExpanderEx)
@@ -193,6 +178,31 @@ namespace Anything.Class
             }
         }
 
+        /// <summary>
+        /// 找到空的Expander并删除
+        /// </summary>
+        public static void FindEmptyExpander()
+        {
+            //遍历子节点
+            foreach (object obj in WindowMain.Recent.Children)
+            {
+                if (obj is ExpanderEx)
+                {
+                    WrapPanel tmp = (WrapPanel)((ExpanderEx)obj).Content;
+
+                    //内容为空则删除
+                    if (tmp.Children.Count <= 0)
+                    {
+                        WindowMain.Recent.Children.Remove((ExpanderEx)obj);
+                        break;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region 语言相关
 
         /// <summary>
         /// 根据指定的语言名称切换语言
@@ -271,7 +281,7 @@ namespace Anything.Class
 
                     WindowMain.ClearSearch();
 
-                    //存储语言信息选择
+                    //存储用户切换的语言名称
                     ApplicationInformations.Anything.AppInfoOperations.SetLanguage(LanguageName);
 
 
@@ -293,6 +303,7 @@ namespace Anything.Class
         public static void LoadingLanguage()
         {
 
+            #region 找到当前程序所有资源字典中的语言资源字典
             //从程序字典集合中寻找
             foreach (ResourceDictionary item in Application.Current.Resources.MergedDictionaries)
             {
@@ -303,47 +314,74 @@ namespace Anything.Class
                 //添加默认的English到菜单
                 if (re.IsMatch(item.Source.ToString()))
                 {
+                    //添加到语言集合
                     listOfLanguage.Add(item);
                 }
             }
 
+            #endregion
+
+            //检查语言目录是否存在
             if (Directory.Exists(LanguagePath))
             {
+                //获取目录下所有文件
                 string[] lanFiles = Directory.GetFiles(LanguagePath);
+
+                //检查数组长度
                 if (lanFiles.Length > 0)
                 {
                     foreach (string str in lanFiles)
                     {
-                        ResourceDictionary rd = System.Windows.Markup.XamlReader.Load(new FileStream(str, FileMode.Open)) as ResourceDictionary;
+                        if (str.ToLower().EndsWith("xaml"))
+                        {
+                            try
+                            {
+                                //加载xaml
+                                ResourceDictionary rd = System.Windows.Markup.XamlReader.Load(new FileStream(str, FileMode.Open)) as ResourceDictionary;
 
-                        rd.Source = new Uri(str, UriKind.Absolute);
+                                //填充source用于正则匹配
+                                rd.Source = new Uri(str, UriKind.Absolute);
 
-                        listOfLanguage.Add(rd);
+                                //添加到集合
+                                listOfLanguage.Add(rd);
+                            }
+                            catch { }
+                        }
                     }
                 }
 
+                //声明菜单县，此菜单项用于切换语言
                 System.Windows.Controls.MenuItem mi;
 
+                //遍历语言资源字典数据集合
                 foreach (ResourceDictionary rd in listOfLanguage)
                 {
+                    //不能使用FindName方法
+                    //所以采用折中方法
                     System.Collections.ICollection values = rd.Values;
 
                     foreach (string str in values)
                     {
+                        //找到当前语言资源字典中定义的语言名称
                         if (str.Contains("%LanguageName%:"))
                         {
+                            //实例化菜单项
                             mi = new System.Windows.Controls.MenuItem();
 
+                            //填写菜单名称
                             mi.Header = str.Replace("%LanguageName%:", "");
 
+                            //添加事件绑定
                             mi.Click += Mi_Click;
 
+                            //加入到主窗体中的菜单
                             WindowMain.Languages.Items.Add(mi);
                         }
                     }
 
                 }
 
+                //加载完成后切换到设定的语言
                 if (listOfLanguage.Count > 0)
                 {
                     ChangeLanguage(ApplicationInformations.Anything.AppInfoOperations.GetLanguage());
@@ -351,32 +389,152 @@ namespace Anything.Class
             }
             else
             {
+                //目录不存在则创建目录
                 Directory.CreateDirectory(LanguagePath);
             }
         }
 
+        /// <summary>
+        /// 语言菜单的事件处理函数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Mi_Click(object sender, RoutedEventArgs e)
         {
+            
             MenuItem mi = (MenuItem)sender;
 
+            //切换语言
             ChangeLanguage(mi.Header.ToString());
         }
 
-        public static void FindEmptyExpander()
-        {
-            foreach (object obj in WindowMain.Recent.Children)
-            {
-                if (obj is ExpanderEx)
-                {
-                    WrapPanel tmp = (WrapPanel)((ExpanderEx)obj).Content;
+        #endregion
 
-                    if (tmp.Children.Count <= 0)
+        #region Item相关
+
+        #region 添加系统引用
+
+        /// <summary>
+        /// 添加我的电脑
+        /// </summary>
+        /// <returns></returns>
+        public static Item AddComputer()
+        {
+            return AddItem(MyComputer, "My Computer");
+        }
+
+        /// <summary>
+        /// 添加控制面板
+        /// </summary>
+        /// <returns></returns>
+        public static Item AddControlPanel()
+        {
+            return AddItem(ControlPanel, "Control Panel");
+        }
+
+        /// <summary>
+        /// 添加回收站
+        /// </summary>
+        /// <returns></returns>
+        public static Item AddRecycleBin()
+        {
+            return AddItem(RecycleBin, "Recycle Bin");
+        }
+
+        /// <summary>
+        /// 添加家我的文档
+        /// </summary>
+        /// <returns></returns>
+        public static Item AddMyDocument()
+        {
+            return AddItem(MyDocument, "My Document");
+        }
+
+        /// <summary>
+        /// 添加网络邻居
+        /// </summary>
+        /// <returns></returns>
+        public static Item AddNetworkNeighbor()
+        {
+            return AddItem(NetworkNeighborhood, "Network Neighborhood");
+        }
+
+        #endregion
+
+
+        /// <summary>
+        /// 添加新项目
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="Name"></param>
+        /// <param name="Arguments"></param>
+        /// <returns></returns>
+        public static Item AddItem(String Path, string Name = "", string Arguments = "", string tagName = "")
+        {
+            //构造类型选择器对象
+            TypeSelector ts = new TypeSelector(new InputInfo(Path, Name, Arguments, tagName));
+
+            //检查可用状态
+            if (ts.IsInitialized)
+            {
+                //构造itemdata类对象
+                ItemData itemdata = new ItemData(new ItemData.DataST(ts.TH.Name, ts.TH.Path, ts.TH.Icon, ts.TH.Arguments, ts.TH.SubPath));
+
+                //查找重复
+                bool itemexists = false;
+
+                foreach (ItemData idd in listOfInnerData)
+                {
+                    if (idd.ID == itemdata.ID)
                     {
-                        WindowMain.Recent.Children.Remove((ExpanderEx)obj);
+                        itemexists = true;
                         break;
                     }
                 }
+
+                //重复则返回空引用并给出提示
+                if (itemexists)
+                {
+                    TipPublic.ShowFixed(WindowMain, ItemExists);
+                    return null;
+                }
+
+                //添加到Item后台数据集合
+                Manage.listOfInnerData.Add(itemdata);
+
+                //构造UI对象
+                Item item = new Item(itemdata);
+
+                //创建事件绑定
+                item.Click += Item_Click;
+
+                //返回构造的前台数据对象
+                return item;
             }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 用于刷新项目的图标
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="itemdata"></param>
+        public static void RefreshSingle(Item item, ItemData itemdata)
+        {
+            //从原有集合中删除
+            ((System.Windows.Controls.WrapPanel)item.Parent).Children.Remove(item);
+
+            //构造新的Item对象
+            Item newOne = new Item(itemdata);
+
+            //添加消息处理
+            newOne.Click += Item_Click;
+
+            FindAndInsert(newOne);
+
         }
 
         /// <summary>
@@ -386,17 +544,19 @@ namespace Anything.Class
         /// <returns></returns>
         public static int FindAndInsert(Item item)
         {
-
+            //有标签名时
             if (!string.IsNullOrEmpty(item.refItemData.TagName))
             {
                 SelectInsert(item);
             }
             else
             {
+                //没有标签名时给予默认的标签名
                 item.refItemData.TagName = DefaultTagName;
                 SelectInsert(item);
             }
 
+            //查找删除空的Expander
             FindEmptyExpander();
 
             return 0;
@@ -448,6 +608,10 @@ namespace Anything.Class
             }
         }
 
+        #endregion
+
+        #region 热键相关
+
         /// <summary>
         /// 反注册所有的热键
         /// </summary>
@@ -459,7 +623,7 @@ namespace Anything.Class
 
             int UnregisteredCount = 0;
 
-            //反注册其他热键
+            //卸载其他热键
             foreach (HotKeyItem i in listOfApplicationHotKey)
             {
                 if (HotKey.UnregisterHotKey(WindowMainHandle, i.ID))
@@ -498,18 +662,25 @@ namespace Anything.Class
         /// <returns></returns>
         public static bool CheckAndRegisterHotKey(HotKeyVisualItem HKVI, object iParent, int id = -65536)
         {
+            //定义用于标识状态的标识符
             bool StatusAvailable = true;
+
+            //检查热键对象的可用状态
             if (HKVI.Available)
             {
+                //未指定ID则按照当前所有已注册的热键ID顺延一位
                 if (id == -65536)
                     id = ++HotKey.CurrentID;
 
+                //转换对象格式，之后可以加个构造重载
                 HotKeyItem hki = new HotKeyItem(iParent, HKVI.KeyValue, HKVI.ModifiersValue, id, HotKeyItem.HotKeyParentType.Item);
 
+                //查找ID冲突
                 foreach (HotKeyItem h in listOfApplicationHotKey)
                 {
                     if (hki.ID == h.ID)
                     {
+                        //如果冲突则更改标识符
                         StatusAvailable = false;
                         break;
                     }
@@ -517,7 +688,10 @@ namespace Anything.Class
 
                 if (StatusAvailable)
                 {
+                    //添加到热键集合
                     listOfApplicationHotKey.Add(hki);
+
+                    //注册热键
                     HotKey.RegisterHotKey(new System.Windows.Interop.WindowInteropHelper(WindowMain).Handle, hki.ID, hki.ModifiersValue, (uint)hki.KeyValue);
                     return true;
                 }
@@ -554,21 +728,25 @@ namespace Anything.Class
         }
 
         /// <summary>
-        /// 查找都应的快捷键响应
+        /// 查找对应的热键并完成响应
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public static bool FindHotKeyAndExecute(int id)
         {
+            //遍历热键对象集合
             foreach (HotKeyItem i in listOfApplicationHotKey)
             {
+                //找到匹配项
                 if (id == i.ID)
                 {
+                    //是Item就执行
                     if (i.IParent is ItemData)
                     {
                         (i.IParent as ItemData).Execute();
                         break;
                     }
+                    //是插件就运行主方法
                     else if (i.IParent is string)
                     {
                         Class.Plugins.Run((string)i.IParent);
@@ -577,6 +755,85 @@ namespace Anything.Class
             }
             return false;
         }
+
+        #endregion
+
+        #region OpenWindow
+
+
+        /// <summary>
+        /// 打开参数窗体
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public static int OpenArgumentsWindow(ItemData itemdata)
+        {
+
+            if (itemdata == null)
+                return -1;
+
+            WindowArgs = new wndArguments();
+            if (WindowArgs != null)
+            {
+                WindowArgs.It = itemdata;
+                WindowArgs.ItemName = itemdata.Name;
+                WindowArgs.Arguments = itemdata.Arguments;
+                WindowArgs.ShowDialog();
+            }
+            else
+            {
+                return -1;
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// 打开手动添加窗体
+        /// </summary>
+        /// <returns></returns>
+        public static int OpenAddWindow()
+        {
+            WindowAdd = new wndAdd();
+            if (WindowAdd != null)
+            {
+                WindowAdd.ShowDialog();
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        /// <summary>
+        /// 打开属性窗口
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static int OpenAttributeWindow(Item item)
+        {
+            wndItemInformation wndInfo = new wndItemInformation(item);
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 打开搜索引擎选择窗口
+        /// </summary>
+        /// <param name="Keyword"></param>
+        /// <returns></returns>
+        public static int OpenSearchWindow(string Keyword)
+        {
+            wndSE wndse = new wndSE(Keyword);
+            wndse.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            //wndse.ShowActivated = true;
+            wndse.ShowDialog();
+            return 0;
+        }
+
+        #endregion
+
+        #region 其他
 
         /// <summary>
         /// 使用搜索引擎搜索
@@ -607,29 +864,16 @@ namespace Anything.Class
         }
 
         /// <summary>
-        /// 打开属性窗口
+        /// 用于保存搜索关键字，暂未完成
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        public static int OpenAttributeWindow(Item item)
+        /// <param name="str"></param>
+        public static void SaveKeyword(string str)
         {
-            wndItemInformation wndInfo = new wndItemInformation(item);
-
-            return 0;
-        }
-
-        /// <summary>
-        /// 打开搜索引擎选择窗口
-        /// </summary>
-        /// <param name="Keyword"></param>
-        /// <returns></returns>
-        public static int OpenSearchWindow(string Keyword)
-        {
-            wndSE wndse = new wndSE(Keyword);
-            wndse.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            //wndse.ShowActivated = true;
-            wndse.ShowDialog();
-            return 0;
+            if (!string.IsNullOrEmpty(str) && str != "Use keyword to search")
+            {
+                listOfRecentKeyword.Add(str);
+                mKeywordRecent.Insert(str, str);
+            }
         }
 
         /// <summary>
@@ -659,54 +903,8 @@ namespace Anything.Class
             return 0;
         }
 
-        /// <summary>
-        /// 打开手动添加窗体
-        /// </summary>
-        /// <returns></returns>
-        public static int OpenAddWindow()
-        {
-            WindowAdd = new wndAdd();
-            if (WindowAdd != null)
-            {
-                WindowAdd.ShowDialog();
-                return 0;
-            }
-            else
-            {
-                return -1;
-            }
-        }
 
-        /// <summary>
-        /// 打开参数窗体
-        /// </summary>
-        /// <param name="ID"></param>
-        /// <returns></returns>
-        public static int OpenArgumentsWindow(ItemData itemdata)
-        {
-
-            if (itemdata == null)
-                return -1;
-
-            WindowArgs = new wndArguments();
-            if (WindowArgs != null)
-            {
-                WindowArgs.It = itemdata;
-                WindowArgs.ItemName = itemdata.Name;
-                WindowArgs.Arguments = itemdata.Arguments;
-                WindowArgs.ShowDialog();
-            }
-            else
-            {
-                return -1;
-            }
-            return 0;
-        }
-
-
-
-
-
+        #endregion
 
         #region 初始化
 
@@ -817,140 +1015,6 @@ namespace Anything.Class
         }
         #endregion
 
-
-        /// <summary>
-        /// 用于刷新项目的图标
-        /// </summary>
-        /// <param name="item"></param>
-        /// <param name="itemdata"></param>
-        public static void RefreshSingle(Item item, ItemData itemdata)
-        {
-            //从原有集合中删除
-            ((System.Windows.Controls.WrapPanel)item.Parent).Children.Remove(item);
-
-            //构造新的Item对象
-            Item newOne = new Item(itemdata);
-
-            //添加消息处理
-            newOne.Click += Item_Click;
-
-            FindAndInsert(newOne);
-
-        }
-
-        /// <summary>
-        /// 添加新项目
-        /// </summary>
-        /// <param name="Path"></param>
-        /// <param name="Name"></param>
-        /// <param name="Arguments"></param>
-        /// <returns></returns>
-        public static Item AddItem(String Path, string Name = "", string Arguments = "", string tagName = "")
-        {
-            TypeSelector ts = new TypeSelector(new InputInfo(Path, Name, Arguments, tagName));
-
-            if (ts.IsInitialized)
-            {
-                //构造itemdata类对象
-                ItemData itemdata = new ItemData(new ItemData.DataST(ts.TH.Name, ts.TH.Path, ts.TH.Icon, ts.TH.Arguments, ts.TH.SubPath));
-
-                bool itemexists = false;
-
-                foreach (ItemData idd in listOfInnerData)
-                {
-                    if (idd.ID == itemdata.ID)
-                    {
-                        itemexists = true;
-                        break;
-                    }
-                }
-
-                if (itemexists)
-                {
-                    TipPublic.ShowFixed(WindowMain, ItemExists);
-                    return null;
-                }
-
-                Manage.listOfInnerData.Add(itemdata);
-
-                //构造UI对象
-                Item item = new Item(itemdata);
-
-                item.Click += Item_Click;
-
-                return item;
-            }
-            else
-            {
-                return null;
-            }
-
-
-        }
-
-
-        #region 添加系统引用
-
-        /// <summary>
-        /// 添加我的电脑
-        /// </summary>
-        /// <returns></returns>
-        public static Item AddComputer()
-        {
-            return AddItem(MyComputer, "My Computer");
-        }
-
-        /// <summary>
-        /// 添加控制面板
-        /// </summary>
-        /// <returns></returns>
-        public static Item AddControlPanel()
-        {
-            return AddItem(ControlPanel, "Control Panel");
-        }
-
-        /// <summary>
-        /// 添加回收站
-        /// </summary>
-        /// <returns></returns>
-        public static Item AddRecycleBin()
-        {
-            return AddItem(RecycleBin, "Recycle Bin");
-        }
-
-        /// <summary>
-        /// 添加家我的文档
-        /// </summary>
-        /// <returns></returns>
-        public static Item AddMyDocument()
-        {
-            return AddItem(MyDocument, "My Document");
-        }
-
-        /// <summary>
-        /// 添加网络邻居
-        /// </summary>
-        /// <returns></returns>
-        public static Item AddNetworkNeighbor()
-        {
-            return AddItem(NetworkNeighborhood, "Network Neighborhood");
-        }
-
-        #endregion
-
-
-        /// <summary>
-        /// 用于保存搜索关键字，暂未完成
-        /// </summary>
-        /// <param name="str"></param>
-        public static void SaveKeyword(string str)
-        {
-            if (!string.IsNullOrEmpty(str) && str != "Use keyword to search")
-            {
-                listOfRecentKeyword.Add(str);
-                mKeywordRecent.Insert(str, str);
-            }
-        }
         #endregion
 
         #region private
