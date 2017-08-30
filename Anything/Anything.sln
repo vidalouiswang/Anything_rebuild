@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anything", "Anything\Anythi
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ApplicationInformations", "..\ApplicationInformations\ApplicationInformations.vbproj", "{7608A591-C219-478D-9FAA-A657060F968B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteBook", "NoteBook\NoteBook.csproj", "{00B5270A-4A08-4234-9527-A0EE36FF96C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7608A591-C219-478D-9FAA-A657060F968B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7608A591-C219-478D-9FAA-A657060F968B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7608A591-C219-478D-9FAA-A657060F968B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00B5270A-4A08-4234-9527-A0EE36FF96C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00B5270A-4A08-4234-9527-A0EE36FF96C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00B5270A-4A08-4234-9527-A0EE36FF96C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00B5270A-4A08-4234-9527-A0EE36FF96C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

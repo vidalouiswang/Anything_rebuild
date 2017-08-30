@@ -1,3 +1,10 @@
-﻿Baidu{https://www.baidu.com/s?wd=%keyword%}
-Baidu Translation{http://fanyi.baidu.com/#en/zh/%keyword%}
-taobao{https://s.taobao.com/search?q=%keyword%}
+﻿百度{https://www.baidu.com/s?wd=%keyword%}
+百度翻译{http://fanyi.baidu.com/#en/zh/%keyword%}
+淘宝{https://s.taobao.com/search?q=%keyword%}
+京东{https://s.taobao.com/search?q=%keyword%}
+亚马逊{https://s.taobao.com/search?q=%keyword%}
+CSDN下载{https://s.taobao.com/search?q=%keyword%}
+PT80{https://s.taobao.com/search?q=%keyword%}
+AcFun{https://s.taobao.com/search?q=%keyword%}
+BiliBili{https://s.taobao.com/search?q=%keyword%}
+虾米{https://s.taobao.com/search?q=%keyword%}

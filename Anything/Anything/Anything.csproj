@@ -95,6 +95,7 @@
     <Compile Include="Class\HotKey.cs" />
     <Compile Include="Class\HotKeyItem.cs" />
     <Compile Include="Class\ItemData.cs" />
+    <Compile Include="Class\KeywordItem.cs" />
     <Compile Include="Class\LinkFile.cs" />
     <Compile Include="Class\Manage.cs" />
     <Compile Include="Class\Plugins.cs" />

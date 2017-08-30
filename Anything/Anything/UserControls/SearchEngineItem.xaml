@@ -8,6 +8,8 @@
              d:DesignHeight="300" d:DesignWidth="300" 
              MouseDoubleClick="UserControl_MouseDoubleClick" 
              KeyUp="UserControl_KeyUp" 
+             Margin="3"
+             MinWidth="200"
              >
     <Border Style="{DynamicResource SearchEngineItemBorderStyle}" >
         <TextBlock Style="{StaticResource TextBlockStyle}" Margin="5"

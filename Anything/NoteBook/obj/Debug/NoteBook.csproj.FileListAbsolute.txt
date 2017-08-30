@@ -1,0 +1,4 @@
+C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\NoteBook\obj\Debug\NoteBook.csprojResolveAssemblyReference.cache
+C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\NoteBook\obj\Debug\wndMain.g.cs
+C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\NoteBook\obj\Debug\NoteBook_MarkupCompile.cache
+C:\Users\vidam\Documents\GitHub\Anything_rebuild\Anything\NoteBook\obj\Debug\NoteBook_MarkupCompile.lref
